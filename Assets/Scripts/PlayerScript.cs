@@ -14,6 +14,8 @@ public class PlayerScript : MonoBehaviour
 
 	public bool isGrounded = false;
 
+	public float playerMass = 50.0f;
+
 	GameObject body;
 
 	Rigidbody2D rb2d;
@@ -50,7 +52,7 @@ public class PlayerScript : MonoBehaviour
 			rb2d.velocity = new Vector2 (-maxSpeed, rb2d.velocity.y);
 		}
 
-		if (Input.GetButtonDown ("Jump") && isGrounded) {
+		if (Input.GetButtonDown ("Jump") && isGrounded && Input.GetAxis ("Jump") > 0f) {
 			rb2d.velocity += Vector2.up * jumpForce;
 			isGrounded = false;
 		}
