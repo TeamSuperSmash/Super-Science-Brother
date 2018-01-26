@@ -52,7 +52,7 @@ public class ItemSpawnManagerScript : MonoBehaviour {
 						{
 							Vector2 myPos = TileManagerScript.instance.tileList[j].transform.position;
 
-							myPos.y += 0.4f;
+							myPos.y += 1f;
 
 							GameObject newItem = Instantiate(itemPrefab, myPos, Quaternion.identity) as GameObject;
 
