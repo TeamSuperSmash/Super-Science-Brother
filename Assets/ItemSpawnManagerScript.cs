@@ -2,12 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType
-{
-	RESGREN = 0,
-	TOTAL,
-};
-
 [System.Serializable]
 public class SpawnRange
 {
@@ -17,11 +11,31 @@ public class SpawnRange
 	public float maxY;
 };
 
+public enum ItemType
+{
+	Nothing = -1,
+	Bomb = 0,
+	Restore = 1,
+	Shield = 2,
+	Bazooka = 3,
+	Fatboy = 4,
+	Total,
+};
+
 public class ItemSpawnManagerScript : MonoBehaviour {
 
+	public static ItemSpawnManagerScript instance;
+
 	public SpawnRange[] spawnPosRange;
+	public Sprite[] itemSprites;
 
 	public GameObject itemPrefab;
+	public PlayerScript player;
+
+	void Awake()
+	{
+		if(instance == null) instance = this;
+	}
 
 	void Update()
 	{
@@ -58,8 +72,11 @@ public class ItemSpawnManagerScript : MonoBehaviour {
 
 							ItemScript itemscript = newItem.GetComponent<ItemScript>();
 
-							itemscript.type = (ItemType)Random.Range(0, (int)ItemType.TOTAL);
+							itemscript.rend = itemscript.GetComponent<SpriteRenderer>();
+
+							itemscript.type = (ItemType)Random.Range(0, (int)ItemType.Total);
 							itemscript.origTile = TileManagerScript.instance.tileList[j];
+							itemscript.rend.sprite = itemSprites[(int)itemscript.type];
 							itemscript.origTile.itemSpawned = true;
 
 							return;

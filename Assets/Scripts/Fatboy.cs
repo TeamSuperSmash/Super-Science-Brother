@@ -22,7 +22,8 @@ public class Fatboy : MonoBehaviour {
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {
-        if (coll.gameObject.CompareTag("platform")) {
+        if (coll.gameObject.CompareTag("platform")) 
+		{
             coll.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             coll.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
