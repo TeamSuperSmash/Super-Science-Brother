@@ -11,6 +11,7 @@ TagManager:
   - Shield
   - Bazooka
   - Fatboy
+  - Tile
   layers:
   - Default
   - TransparentFX
