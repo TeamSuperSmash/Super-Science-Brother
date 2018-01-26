@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public ItemType inventorySlot = ItemType.Nothing;
+
 	public float maxSpeed = 5f;
 
 	public float accelerationForce = 5f;

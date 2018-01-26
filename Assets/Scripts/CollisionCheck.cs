@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class CollisionCheck : MonoBehaviour
 {
-	PlayerScript player;
+	public PlayerScript player;
 
-	void Awake ()
-	{
-		player = FindObjectOfType<PlayerScript> ();
-	}
+    void Awake() {
+        player = GetComponentInParent<PlayerScript>();
+    }
 
-	void OnCollisionEnter2D (Collision2D other)
+    void OnCollisionEnter2D (Collision2D other)
 	{
 		if (other.gameObject.tag == "Ground" && this.gameObject.tag == "Player") {
 			player.isGrounded = true;
