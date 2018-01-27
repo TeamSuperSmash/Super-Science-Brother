@@ -10,7 +10,9 @@ public class ForceScript : MonoBehaviour
 	public float lifeTime = 0.1f;
 	public float lifeTimeCounter = 0.0f;
 
-	void Awake ()
+    public PlayerGunScript pgs;
+
+    void Awake ()
 	{
 
 	}
@@ -45,7 +47,7 @@ public class ForceScript : MonoBehaviour
 
 			Rigidbody2D tempRb2d = other.GetComponent<Rigidbody2D> ();
 
-			AddExplosionForce2D (tempRb2d, power, transform.position, radius);
+            AddExplosionForce2D (tempRb2d, power + pgs.bazookaForce, transform.position, radius);
 		}
 	}
 

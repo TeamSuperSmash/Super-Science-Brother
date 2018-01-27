@@ -6,6 +6,8 @@ public class PlayerGunScript : MonoBehaviour
 {
 	public LayerMask toHit;
 
+    public float bazookaForce = 0;
+
 	public float hitRate = 1.0f;
 	public float hitRateCounter = 0.0f;
 

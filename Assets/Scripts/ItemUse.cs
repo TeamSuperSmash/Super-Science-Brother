@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemUse : MonoBehaviour {
+    public float countdown;
+    public float buffTime = 5;
 
     [Range(0.0f, 1.0f)]
     public float itemSpawnDist;
@@ -15,22 +17,29 @@ public class ItemUse : MonoBehaviour {
 
     public List<GameObject> itemList = new List<GameObject>();
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    public PlayerGunScript pgs;
+
+    public bool usingBazooka;
+
+    void Start() {
+        countdown = buffTime;
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetButtonDown("ItemUse")) {
-            Debug.Log("I pressed E!");
-            if(ItemSpawnManagerScript.instance.player.inventorySlot != ItemType.Nothing) {
+            if (ItemSpawnManagerScript.instance.player.inventorySlot != ItemType.Nothing) {
                 switch (ItemSpawnManagerScript.instance.player.inventorySlot) {
                     case ItemType.Bazooka:
+                        ItemSpawnManagerScript.instance.player.inventorySlot = ItemType.Nothing;
+
+                        countdown = buffTime;
+                        pgs.bazookaForce = 350;
+                        usingBazooka = true;
                         break;
                     case ItemType.BombInc:
                     case ItemType.BombDec:
-                        GameObject go = Instantiate(itemList[1], new Vector2(ItemSpawnManagerScript.instance.player.ragdoll.body.position.x + itemSpawnDist, ItemSpawnManagerScript.instance.player.ragdoll.body.position.y), transform.rotation);
+                        GameObject go = Instantiate(itemList[0], new Vector2(ItemSpawnManagerScript.instance.player.ragdoll.body.position.x + itemSpawnDist, ItemSpawnManagerScript.instance.player.ragdoll.body.position.y), transform.rotation);
                         if(ItemSpawnManagerScript.instance.player.inventorySlot == ItemType.BombInc) {
                             go.GetComponent<MassBomb>().type = BombType.BombIncrease;
                         } else {
@@ -38,7 +47,7 @@ public class ItemUse : MonoBehaviour {
                         }
                         break;
                     case ItemType.Fatboy:
-                        Instantiate(itemList[2], new Vector2(ItemSpawnManagerScript.instance.player.ragdoll.body.position.x + fatboySpawnDistX, fatboySpawnDistY), transform.rotation);
+                        Instantiate(itemList[1], new Vector2(ItemSpawnManagerScript.instance.player.ragdoll.body.position.x + fatboySpawnDistX, fatboySpawnDistY), transform.rotation);
                         break;
                     case ItemType.Restore:
                         break;
@@ -48,5 +57,14 @@ public class ItemUse : MonoBehaviour {
                 ItemSpawnManagerScript.instance.player.inventorySlot = ItemType.Nothing;
             }
         }
-	}
+
+        if(usingBazooka) {
+            countdown -= Time.deltaTime;
+            if(countdown <= 0.0f) {
+                usingBazooka = false;
+                countdown = buffTime;
+                pgs.bazookaForce = 0;
+            }
+        }
+    }
 }

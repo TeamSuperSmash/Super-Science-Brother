@@ -3,14 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Ragdoll {
+public class PlayerRagdoll {
     public Transform head;
     public Transform body;
+    public Transform hand_L;
+    public Transform hand_R;
+    public Transform leg_L;
+    public Transform leg_R;
+
+    public Transform gun;
+    public Transform fireSpot;
+}
+
+public interface PlayerComponent {
+    void SetPlayer(PlayerScript player);
 }
 
 public class PlayerScript : MonoBehaviour
 {
-    public Ragdoll ragdoll;
+    public PlayerRagdoll ragdoll;
 
     public ItemType inventorySlot = ItemType.Nothing;
 
