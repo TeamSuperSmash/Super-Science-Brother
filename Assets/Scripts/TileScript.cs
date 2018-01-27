@@ -13,7 +13,8 @@ public enum TileType
 	TOTAL,
 };
 
-public class TileScript : MonoBehaviour {
+public class TileScript : MonoBehaviour
+{
 
 	public bool isAlive;
 	public bool itemSpawned;
@@ -32,35 +33,59 @@ public class TileScript : MonoBehaviour {
 	float prevMatValue;
 
 	// Use this for initialization
-	void Start () {
-		rend = GetComponent<SpriteRenderer>();
-		myColl = GetComponent<BoxCollider2D>();
+	void Start ()
+	{
+		rend = GetComponent<SpriteRenderer> ();
+		myColl = GetComponent<BoxCollider2D> ();
 
-		UpdateMat();
+		UpdateMat ();
 
 		curMatValue = (int)type * TileManagerScript.instance.matUpdateValue;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 
 		//Physics2D.OverlapBoxAll(transform.position, 1f, 0f);
 
 	}
 
-	public void UpdateMat()
+	public void ChangeTileMatPositive ()
+	{
+		if (matCanChange) {
+			curMatValue += Time.deltaTime * TileManagerScript.instance.matChangeSpeed;
+
+			if (curMatValue >= nextMatValue) {
+				int tempType = (int)type + 1;
+				type = (TileType)tempType;
+				UpdateMat ();
+			}
+		}
+	}
+
+	public void ChangeTileMatNegative ()
+	{
+		if (matCanChange) {
+			curMatValue -= Time.deltaTime * TileManagerScript.instance.matChangeSpeed;
+
+			if (curMatValue <= prevMatValue) {
+				int tempType = (int)type - 1;
+				type = (TileType)tempType;
+				UpdateMat ();
+			}
+		}
+	}
+
+	public void UpdateMat ()
 	{
 		int type_int = (int)type;
 
-		rend.sprite = TileManagerScript.instance.tileTypes[type_int];
+		rend.sprite = TileManagerScript.instance.tileTypes [type_int];
 
-
-		if(type_int >= (int)TileType.METAL)
-		{
+		if (type_int >= (int)TileType.METAL) {
 			matCanChange = false;
-		}
-		else if(type_int == 0)
-		{
+		} else if (type_int == 0) {
 			matCanChange = false;
 		}
 
@@ -69,41 +94,34 @@ public class TileScript : MonoBehaviour {
 
 	}
 
-	void OnMouseOver()
+	void OnMouseOver ()
 	{
-		if(Input.GetButton("Fire1"))
-		{
-			if(matCanChange)
-			{
+		if (Input.GetButton ("Fire1")) {
+			if (matCanChange) {
 				curMatValue += Time.deltaTime * TileManagerScript.instance.matChangeSpeed;
 
-				if(curMatValue >= nextMatValue)
-				{
+				if (curMatValue >= nextMatValue) {
 					int tempType = (int)type + 1;
 					type = (TileType)tempType;
-					UpdateMat();
+					UpdateMat ();
 				}
 			}
 
-		}
-		else if(Input.GetButton("Fire2"))
-		{
-			if(matCanChange)
-			{
+		} else if (Input.GetButton ("Fire2")) {
+			if (matCanChange) {
 				curMatValue -= Time.deltaTime * TileManagerScript.instance.matChangeSpeed;
 
-				if(curMatValue <= prevMatValue)
-				{
+				if (curMatValue <= prevMatValue) {
 					int tempType = (int)type - 1;
 					type = (TileType)tempType;
-					UpdateMat();
+					UpdateMat ();
 				}
 			}
 		}
 	}
 
 
-	public void SetAlive(bool alive)
+	public void SetAlive (bool alive)
 	{
 		isAlive = alive;
 		rend.enabled = alive;

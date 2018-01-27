@@ -6,7 +6,7 @@ public class PlayerGunScript : MonoBehaviour
 {
 	public LayerMask toHit;
 
-    public float bazookaForce = 0;
+	public float bazookaForce = 0;
 
 	public float hitRate = 1.0f;
 	public float hitRateCounter = 0.0f;
@@ -24,8 +24,10 @@ public class PlayerGunScript : MonoBehaviour
 	public float forceShootCooldown = 2.0f;
 	public float forceShootCooldownCounter = 0.0f;
 
-	public float playerMaxMass = 200.0f;
+	public float playerMaxMass = 250.0f;
 	public float playerMinMass = 0.0f;
+
+	public TileScript tile;
 
 	// Use this for initialization
 	void Start ()
@@ -79,12 +81,16 @@ public class PlayerGunScript : MonoBehaviour
 					hitRateCounter = 0.0f;
 
 					GameObject tempPlayer = hitPositiveMode.transform.gameObject;
-					if (tempPlayer.GetComponentInParent<PlayerScript> ().playerMass < playerMaxMass) {
-						tempPlayer.GetComponentInParent<PlayerScript> ().playerMass += massTransferRate;
-					}
+
+					tempPlayer.transform.GetComponentInParent<PlayerScript> ().PlayerMassPositive (massTransferRate);
 				}			
 			} else {
 				hitRateCounter = 0.0f;
+			}
+
+			if (hitPositiveMode.transform.GetComponent<TileScript> ()) {
+				
+				hitPositiveMode.transform.gameObject.GetComponent<TileScript> ().ChangeTileMatPositive ();
 			}
 		}
 	}
@@ -111,12 +117,16 @@ public class PlayerGunScript : MonoBehaviour
 					hitRateCounter = 0.0f;
 
 					GameObject tempPlayer = hitNegativeMode.transform.gameObject;
-					if (tempPlayer.GetComponentInParent<PlayerScript> ().playerMass > playerMinMass) {
-						tempPlayer.GetComponentInParent<PlayerScript> ().playerMass -= massTransferRate;
-					}
+
+					tempPlayer.transform.GetComponentInParent<PlayerScript> ().PlayerMassNegative (massTransferRate);
 				}			
 			} else {
 				hitRateCounter = 0.0f;
+			}
+
+			if (hitNegativeMode.transform.GetComponent<TileScript> ()) {
+
+				hitNegativeMode.transform.gameObject.GetComponent<TileScript> ().ChangeTileMatNegative ();
 			}
 		}
 	}

@@ -633,6 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393a689088631cd44b16c9e03e5700e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hitGroundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -651,9 +652,10 @@ MonoBehaviour:
   toHit:
     serializedVersion: 2
     m_Bits: 4294967291
-  hitRate: 1
+  bazookaForce: 0
+  hitRate: 0.5
   hitRateCounter: 0
-  massTransferRate: 10
+  massTransferRate: 5
   forceOutPos: {fileID: 4094814815273294}
   forceEffect: {fileID: 1025228048751660, guid: 331b6d27f0941ab448d14d60b2fd5e02,
     type: 2}
@@ -662,6 +664,7 @@ MonoBehaviour:
   forceShootCooldownCounter: 0
   playerMaxMass: 200
   playerMinMass: 0
+  tile: {fileID: 0}
 --- !u!114 &114505402344672120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -673,16 +676,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7a81f2120487e4da56c6acdd6a901b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdoll:
+    head: {fileID: 0}
+    body: {fileID: 0}
+    hand_L: {fileID: 0}
+    hand_R: {fileID: 0}
+    leg_L: {fileID: 0}
+    leg_R: {fileID: 0}
+    gun: {fileID: 0}
+    fireSpot: {fileID: 0}
+  inventorySlot: -1
   maxSpeed: 5
   accelerationForce: 5
   jumpForce: 50
   fallMultiplier: 2
   quickJumpMultiplier: 1.5
-  playerMass: 100
   isGrounded: 0
+  isRight: 1
+  playerMass: 100
+  nextPlayerMass: 0
+  prevPlayerMass: 0
+  playerMassChangeThreshold: 50
   hitGroundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
+  playerType: 0
+  colourList:
+  - {r: 0, g: 1, b: 0.006896496, a: 1}
+  - {r: 0, g: 1, b: 0.79310346, a: 1}
+  - {r: 0, g: 0.21379304, b: 1, a: 1}
+  - {r: 0.8206897, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  playerColourType: 0
+  maxPlayerMass: 250
+  minPlayerMass: 0
 --- !u!114 &114574203347310012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -694,6 +721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393a689088631cd44b16c9e03e5700e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hitGroundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -709,6 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393a689088631cd44b16c9e03e5700e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hitGroundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -735,6 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393a689088631cd44b16c9e03e5700e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hitGroundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -750,6 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393a689088631cd44b16c9e03e5700e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hitGroundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -765,6 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393a689088631cd44b16c9e03e5700e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hitGroundLayer:
     serializedVersion: 2
     m_Bits: 256

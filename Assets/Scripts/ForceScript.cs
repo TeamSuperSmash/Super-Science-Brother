@@ -12,9 +12,9 @@ public class ForceScript : MonoBehaviour
 	
 	public float forceAmplify = 10.0f;
 	
-    public PlayerGunScript pgs;
+	public PlayerGunScript pgs;
 
-    void Awake ()
+	void Awake ()
 	{
 
 	}
@@ -45,23 +45,23 @@ public class ForceScript : MonoBehaviour
 	{
 		Rigidbody2D tempRb2d = other.GetComponent<Rigidbody2D> ();
 
-        if(tempRb2d) {
-            if (other.gameObject.CompareTag("Player")) {
-                Debug.Log("Player toucha the exploda!");
-                float tempPlayerMass = other.GetComponentInParent<PlayerScript>().playerMass;
+		if (tempRb2d) {
+			if (other.gameObject.CompareTag ("Player")) {
+				Debug.Log ("Player toucha the exploda!");
+				float tempPlayerMass = other.GetComponentInParent<PlayerScript> ().playerMass;
 
-                // Power is inverse to the player's mass
-                power = (-tempPlayerMass + 250.0f) * forceAmplify;
-            } else {
-                power = 250.0f * forceAmplify;
-            }
+				// Power is inverse to the player's mass
+				power = (-tempPlayerMass + 250.0f) * forceAmplify;
+			} else {
+				power = 250.0f * forceAmplify;
+			}
 
-            if (power < 0.0f) {
-                power = 0.0f;
-            }
+			if (power < 0.0f) {
+				power = 0.0f;
+			}
 
-            AddExplosionForce2D(tempRb2d, power + pgs.bazookaForce, transform.position, radius);
-        }
+			AddExplosionForce2D (tempRb2d, power, transform.position, radius);
+		}
 	}
 
 	void CheckLifeTime ()
