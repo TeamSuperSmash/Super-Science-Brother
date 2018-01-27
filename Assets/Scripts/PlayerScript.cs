@@ -12,13 +12,15 @@ public class PlayerScript : MonoBehaviour
 	public float fallMultiplier = 2f;
 	public float quickJumpMultiplier = 1.5f;
 
-	public bool isGrounded = false;
+	public float playerMass = 100.0f;
 
-	public float playerMass = 50.0f;
+	public bool isGrounded = false;
 
 	GameObject body;
 
 	Rigidbody2D rb2d;
+
+	public LayerMask hitGroundLayer;
 
 	void Awake ()
 	{
@@ -34,6 +36,7 @@ public class PlayerScript : MonoBehaviour
 	void Update ()
 	{
 		Movement ();
+		Jump ();
 	}
 
 	void Movement ()
@@ -51,14 +54,18 @@ public class PlayerScript : MonoBehaviour
 		if (rb2d.velocity.x < -maxSpeed) {
 			rb2d.velocity = new Vector2 (-maxSpeed, rb2d.velocity.y);
 		}
+	}
 
-		if (Input.GetButtonDown ("Jump") && isGrounded && Input.GetAxis ("Jump") > 0f) {
-			rb2d.velocity += Vector2.up * jumpForce;
-			isGrounded = false;
+	void Jump ()
+	{
+		if (isGrounded) {
+			if (Input.GetButtonDown ("Jump")) {
+				rb2d.velocity += Vector2.up * jumpForce;
+			}
 		}
 
 		//When player is falling
-		if (rb2d.velocity.y < 0 && !isGrounded) {
+		if (rb2d.velocity.y < 0) {
 			rb2d.velocity += Vector2.down * fallMultiplier;
 		} else if (rb2d.velocity.y > 0 && !Input.GetButton ("Jump")) {
 			rb2d.velocity += Vector2.down * quickJumpMultiplier;
