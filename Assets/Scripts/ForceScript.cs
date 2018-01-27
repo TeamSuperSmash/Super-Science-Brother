@@ -10,6 +10,8 @@ public class ForceScript : MonoBehaviour
 	public float lifeTime = 0.1f;
 	public float lifeTimeCounter = 0.0f;
 
+	public float forceAmplify = 10.0f;
+
 	void Awake ()
 	{
 
@@ -44,6 +46,15 @@ public class ForceScript : MonoBehaviour
 			Debug.Log ("Player toucha the exploda!");
 
 			Rigidbody2D tempRb2d = other.GetComponent<Rigidbody2D> ();
+
+			float tempPlayerMass = other.GetComponentInParent<PlayerScript> ().playerMass;
+
+			// Power is inverse to the player's mass
+			power = (-tempPlayerMass + 250.0f) * forceAmplify;
+
+			if (power < 0.0f) {
+				power = 0.0f;
+			}
 
 			AddExplosionForce2D (tempRb2d, power, transform.position, radius);
 		}

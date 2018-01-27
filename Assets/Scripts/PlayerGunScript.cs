@@ -18,6 +18,13 @@ public class PlayerGunScript : MonoBehaviour
 	public Transform forceOutPos;
 	public GameObject forceEffect;
 
+	public bool canShootForce = false;
+	public float forceShootCooldown = 2.0f;
+	public float forceShootCooldownCounter = 0.0f;
+
+	public float playerMaxMass = 200.0f;
+	public float playerMinMass = 0.0f;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -35,8 +42,17 @@ public class PlayerGunScript : MonoBehaviour
 			hitRateCounter = 0.0f;
 		}
 
-		if (Input.GetKeyDown (KeyCode.F)) {
-			ForceShoot ();
+		if (canShootForce) {
+			if (Input.GetKeyDown (KeyCode.F)) {
+				canShootForce = false;
+				ForceShoot ();
+			}
+		} else if (!canShootForce) {
+			forceShootCooldownCounter += Time.deltaTime;
+			if (forceShootCooldownCounter > forceShootCooldown) {
+				forceShootCooldownCounter = 0.0f;
+				canShootForce = true;
+			}
 		}
 	}
 
@@ -45,9 +61,9 @@ public class PlayerGunScript : MonoBehaviour
 		Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
 		Vector2 firePointPosition = new Vector2 (transform.position.x, transform.position.y);
 
-		hitPositiveMode = Physics2D.Raycast (firePointPosition, (mousePosition - firePointPosition) * 100.0f, 100.0f, toHit);
+		hitPositiveMode = Physics2D.Raycast (firePointPosition, (mousePosition - firePointPosition) * 1000.0f, 100.0f, toHit);
 
-		Debug.DrawLine (firePointPosition, (mousePosition - firePointPosition) * 100.0f, Color.green);
+		Debug.DrawLine (firePointPosition, (mousePosition - firePointPosition) * 1000.0f, Color.green);
 		Debug.Log ("Player shoot the expand lazer!");
 
 		if (hitPositiveMode.collider != null) {
@@ -55,15 +71,18 @@ public class PlayerGunScript : MonoBehaviour
 			Debug.Log ("Player expanding an object!");
 
 			if (hitPositiveMode.transform.CompareTag ("Player")) {
-
 				hitRateCounter += Time.deltaTime;
 
 				if (hitRateCounter > hitRate) {
 					hitRateCounter = 0.0f;
 
 					GameObject tempPlayer = hitPositiveMode.transform.gameObject;
-					tempPlayer.GetComponentInParent<PlayerScript> ().playerMass += massTransferRate;
+					if (tempPlayer.GetComponentInParent<PlayerScript> ().playerMass < playerMaxMass) {
+						tempPlayer.GetComponentInParent<PlayerScript> ().playerMass += massTransferRate;
+					}
 				}			
+			} else {
+				hitRateCounter = 0.0f;
 			}
 		}
 	}
@@ -73,9 +92,9 @@ public class PlayerGunScript : MonoBehaviour
 		Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
 		Vector2 firePointPosition = new Vector2 (transform.position.x, transform.position.y);
 
-		hitNegativeMode = Physics2D.Raycast (firePointPosition, (mousePosition - firePointPosition) * 100.0f, 100.0f, toHit);
+		hitNegativeMode = Physics2D.Raycast (firePointPosition, (mousePosition - firePointPosition) * 1000.0f, 100.0f, toHit);
 
-		Debug.DrawLine (firePointPosition, (mousePosition - firePointPosition) * 100.0f, Color.yellow);
+		Debug.DrawLine (firePointPosition, (mousePosition - firePointPosition) * 1000.0f, Color.yellow);
 		Debug.Log ("Player shoot the detract lazer!");
 
 		if (hitNegativeMode.collider != null) {
@@ -90,8 +109,12 @@ public class PlayerGunScript : MonoBehaviour
 					hitRateCounter = 0.0f;
 
 					GameObject tempPlayer = hitNegativeMode.transform.gameObject;
-					tempPlayer.GetComponentInParent<PlayerScript> ().playerMass -= massTransferRate;
+					if (tempPlayer.GetComponentInParent<PlayerScript> ().playerMass > playerMinMass) {
+						tempPlayer.GetComponentInParent<PlayerScript> ().playerMass -= massTransferRate;
+					}
 				}			
+			} else {
+				hitRateCounter = 0.0f;
 			}
 		}
 	}
@@ -99,5 +122,10 @@ public class PlayerGunScript : MonoBehaviour
 	void ForceShoot ()
 	{
 		Instantiate (forceEffect, new Vector3 (forceOutPos.transform.position.x, forceOutPos.transform.position.y, 0.0f), Quaternion.identity);
+	}
+
+	void ChangeShootMode ()
+	{
+
 	}
 }
