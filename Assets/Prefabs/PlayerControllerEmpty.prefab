@@ -700,7 +700,7 @@ MonoBehaviour:
   hitGroundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  playerType: 0
+  playerType: 2
   colourList:
   - {r: 0, g: 1, b: 0.006896496, a: 1}
   - {r: 0, g: 1, b: 0.79310346, a: 1}

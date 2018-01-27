@@ -80,6 +80,8 @@ public class PlayerScript : MonoBehaviour
 		body = GameObject.Find ("Body");
 		rb2d = body.GetComponent<Rigidbody2D> ();
 		sRender = GetComponentInChildren<SpriteRenderer> ();
+
+		PlayerUpdateMatColour ();
 	}
 
 	void Update ()
