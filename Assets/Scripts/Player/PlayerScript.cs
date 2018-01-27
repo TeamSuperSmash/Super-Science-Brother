@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [System.Serializable]
 public class PlayerRagdoll
@@ -21,7 +22,7 @@ public interface PlayerComponent
     void SetPlayer(PlayerScript player);
 }
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : NetworkBehaviour
 {
 	//Developer
 	private Rigidbody2D rb;
@@ -87,26 +88,35 @@ public class PlayerScript : MonoBehaviour
 	}
 
 	void Update()
-	{
+    {
+        HeldItem();
+
+        if (mass <= type.GetPrevMaterial().GetMass())
+        {
+            type = type.GetPrevMaterial();
+            SetMaterial(type.GetSprite());
+        }
+
+        if (mass >= type.GetNextMaterial().GetMass())
+        {
+            type = type.GetNextMaterial();
+            SetMaterial(type.GetSprite());
+        }
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 		UseItem ();
-		HeldItem();
-
-		if(mass <= type.GetPrevMaterial().GetMass())
-		{
-			type = type.GetPrevMaterial();
-			SetMaterial(type.GetSprite());
-		}
-
-		if(mass >= type.GetNextMaterial().GetMass())
-		{
-			type = type.GetNextMaterial();
-			SetMaterial(type.GetSprite());
-		}
 	}
 
 	void LateUpdate()
 	{
-		Movement ();
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        Movement ();
 		Jump ();
 		Aim ();
 	}
