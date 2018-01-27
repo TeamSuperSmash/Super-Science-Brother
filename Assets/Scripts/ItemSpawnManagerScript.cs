@@ -14,11 +14,12 @@ public class SpawnRange
 public enum ItemType
 {
 	Nothing = -1,
-	Bomb = 0,
-	Restore = 1,
-	Shield = 2,
-	Bazooka = 3,
-	Fatboy = 4,
+	BombInc = 0,
+    BombDec = 1,
+	Restore = 2,
+	Shield = 3,
+	Bazooka = 4,
+	Fatboy = 5,
 	Total,
 };
 

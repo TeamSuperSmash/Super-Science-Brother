@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Ragdoll {
+    public Transform head;
+    public Transform body;
+}
+
 public class PlayerScript : MonoBehaviour
 {
+    public Ragdoll ragdoll;
+
     public ItemType inventorySlot = ItemType.Nothing;
 
 	public float maxSpeed = 5f;
@@ -15,6 +23,7 @@ public class PlayerScript : MonoBehaviour
 	public float quickJumpMultiplier = 1.5f;
 
 	public bool isGrounded = false;
+    public bool isRight = true;
 
 	GameObject body;
 
@@ -40,9 +49,11 @@ public class PlayerScript : MonoBehaviour
 	{
 		if (Input.GetButton ("Horizontal") && Input.GetAxis ("Horizontal") < 0f) {
 			rb2d.velocity += Vector2.left * accelerationForce;
+            isRight = false;
 		}
 		if (Input.GetButton ("Horizontal") && Input.GetAxis ("Horizontal") > 0f) {
 			rb2d.velocity += Vector2.right * accelerationForce;
+            isRight = true;
 		}
 
 		if (rb2d.velocity.x > maxSpeed) {
