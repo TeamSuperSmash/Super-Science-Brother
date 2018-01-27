@@ -57,6 +57,12 @@ public class MassBomb : MonoBehaviour {
                 } else {
                     bombReturnList[i].GetComponent<TileScript>().curMatValue -= (bombReturnList[i].GetComponent<TileScript>().curMatValue / 2);
                 }
+            } else if (bombReturnList[i].CompareTag("Player")) {
+                if (this.type == BombType.BombIncrease) {
+                    bombReturnList[i].GetComponent<PlayerScript>().playerMass += (bombReturnList[i].GetComponent<PlayerScript>().playerMass / 2);
+                } else {
+                    bombReturnList[i].GetComponent<PlayerScript>().playerMass -= (bombReturnList[i].GetComponent<PlayerScript>().playerMass / 2);
+                }
             }
         }
     }

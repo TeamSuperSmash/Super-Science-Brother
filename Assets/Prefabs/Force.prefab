@@ -94,6 +94,7 @@ MonoBehaviour:
   lifeTime: 0.05
   lifeTimeCounter: 0
   forceAmplify: 10
+  pgs: {fileID: 0}
 --- !u!212 &212009036389697108
 SpriteRenderer:
   m_ObjectHideFlags: 1
