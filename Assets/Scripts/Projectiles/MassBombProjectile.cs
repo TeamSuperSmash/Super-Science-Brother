@@ -22,46 +22,62 @@ public class MassBombProjectile : MonoBehaviour {
 
     float countdown;
 
-    public BombType type;
+	public bool isBombIncrease;
 
     PlayerScript player;
 
     Rigidbody2D rb;
 
-    void Start() {
-        rb.AddForce(new Vector2(forceX * 30, forceY * 30));
-    }
-
-    void Awake () {
+    void Awake ()
+	{
         rb = GetComponent<Rigidbody2D>();
         countdown = delay;
 	}
 
+	void Start()
+	{
+		rb.AddForce(new Vector2(forceX * 30, forceY * 30));
+	}
+
     // Update is called once per frame
-    void Update() {
+    void Update()
+	{
         countdown -= Time.deltaTime;
-        if(countdown <= 0) {
+        if(countdown <= 0)
+		{
             Explode();
             Debug.Log("Kaboom");
             Destroy(this.gameObject);
         }
     }
 
-    void Explode() {
+    void Explode()
+	{
         //Integrating the Tile Mass First
         Collider2D[] bombReturnList = Physics2D.OverlapCircleAll(this.transform.position, bombRadi);
-        for (int i = 0; i < bombReturnList.Length; i++) {
-            if (bombReturnList[i].CompareTag("Tile")) {
-                if (this.type == BombType.BombIncrease) {
+
+        for (int i = 0; i < bombReturnList.Length; i++)
+		{
+            if (bombReturnList[i].CompareTag("Tile"))
+			{
+				if (isBombIncrease)
+				{
                     bombReturnList[i].GetComponent<TileScript>().mass += (bombReturnList[i].GetComponent<TileScript>().mass / 2);
-                } else {
+                }
+				else
+				{
                     bombReturnList[i].GetComponent<TileScript>().mass -= (bombReturnList[i].GetComponent<TileScript>().mass / 2);
                 }
-            } else if (bombReturnList[i].CompareTag("Player")) {
-                if (this.type == BombType.BombIncrease) {
-                    bombReturnList[i].GetComponent<PlayerScript>().playerMass += (bombReturnList[i].GetComponent<PlayerScript>().playerMass / 2);
-                } else {
-                    bombReturnList[i].GetComponent<PlayerScript>().playerMass -= (bombReturnList[i].GetComponent<PlayerScript>().playerMass / 2);
+            }
+			else if (bombReturnList[i].CompareTag("Player"))
+			{
+				if (isBombIncrease)
+				{
+                    bombReturnList[i].GetComponent<PlayerScript>().mass += (bombReturnList[i].GetComponent<PlayerScript>().mass / 2);
+                }
+				else
+				{
+                    bombReturnList[i].GetComponent<PlayerScript>().mass -= (bombReturnList[i].GetComponent<PlayerScript>().mass / 2);
                 }
             }
         }

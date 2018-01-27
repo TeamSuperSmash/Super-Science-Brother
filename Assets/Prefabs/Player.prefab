@@ -752,7 +752,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
-  fatBoyPrefab: {fileID: 0}
+  fatBoyPrefab: {fileID: 1850295449221692, guid: 80a78a19fcebc4f4f8d1d8207fbd71da,
+    type: 2}
   fatboySpawnDistX: 0
   fatboySpawnDistY: 0
 --- !u!114 &114181663713571760
@@ -811,7 +812,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  massBombPrefab: {fileID: 0}
+  massBombPrefab: {fileID: 1040454941439792, guid: 0e70516e4c6c6854bbfe6e3c396ab2b2,
+    type: 2}
   itemSpawnDist: 0
 --- !u!114 &114505402344672120
 MonoBehaviour:
@@ -910,7 +912,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  massBombPrefab: {fileID: 0}
+  massBombPrefab: {fileID: 1040454941439792, guid: 0e70516e4c6c6854bbfe6e3c396ab2b2,
+    type: 2}
   itemSpawnDist: 0
 --- !u!114 &114963914120807458
 MonoBehaviour:

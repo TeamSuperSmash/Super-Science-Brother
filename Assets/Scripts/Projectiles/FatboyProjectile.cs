@@ -9,19 +9,23 @@ public class FatboyProjectile : MonoBehaviour {
 
     private Rigidbody2D rb;
 
-	void Start () {
+	void Awake ()
+	{
         rb = GetComponent<Rigidbody2D>();
 	}
 	
-	void Update () {
+	void Update ()
+	{
         rb.velocity = new Vector2(rb.velocity.x, -moveSpeed);
 
-        if(this.transform.position.y < -30) {
+        if(this.transform.position.y < -30)
+		{
             Destroy(gameObject);
         }
 	}
 
-    void OnCollisionEnter2D(Collision2D coll) {
+    void OnCollisionEnter2D(Collision2D coll)
+	{
         if (coll.gameObject.CompareTag("Tile")) 
 		{
             coll.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;

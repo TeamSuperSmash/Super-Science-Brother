@@ -78,12 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1a751c8079c3647b04875a802b8bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAlive: 0
-  itemSpawned: 0
-  matCanChange: 1
   type: 2
-  fragValue: 0
-  curMatValue: 0
+  mass: 0
+  isAlive: 0
+  hasItem: 0
 --- !u!212 &212944187089081732
 SpriteRenderer:
   m_ObjectHideFlags: 1

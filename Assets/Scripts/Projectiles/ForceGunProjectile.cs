@@ -4,25 +4,11 @@ using UnityEngine;
 
 public class ForceGunProjectile : MonoBehaviour
 {
-	public float power = 5000.0f;
+	public float forceAmplify = 10.0f;
 	public float radius = 100.0f;
 
 	public float lifeTime = 0.1f;
 	public float lifeTimeCounter = 0.0f;
-	
-	public float forceAmplify = 10.0f;
-	
-    public PlayerGunScript pgs;
-
-    void Awake ()
-	{
-
-	}
-
-	void Start ()
-	{
-
-	}
 
 	void Update ()
 	{
@@ -34,7 +20,8 @@ public class ForceGunProjectile : MonoBehaviour
 		Vector3 dir = (body.transform.position - explodePos);
 		float calculate = 1 - (dir.magnitude / explodeRadius);
 
-		if (calculate < 0) {
+		if (calculate < 0)
+		{
 			calculate = 0;
 		}
 
@@ -45,22 +32,32 @@ public class ForceGunProjectile : MonoBehaviour
 	{
 		Rigidbody2D tempRb2d = other.GetComponent<Rigidbody2D> ();
 
-        if(tempRb2d) {
-            if (other.gameObject.CompareTag("Player")) {
+        if(tempRb2d)
+		{
+			float power = 0.0f;
+
+            if (other.gameObject.CompareTag("Player"))
+			{
                 Debug.Log("Player toucha the exploda!");
-                float tempPlayerMass = other.GetComponentInParent<PlayerScript>().playerMass;
+				PlayerScript tempPlayer = other.GetComponentInParent<PlayerScript>();
 
                 // Power is inverse to the player's mass
-                power = (-tempPlayerMass + 250.0f) * forceAmplify;
-            } else {
+				power = ((-tempPlayer.mass + 250.0f) * forceAmplify) + tempPlayer.gun.forceGunFactor;
+            }
+			else
+			{
                 power = 250.0f * forceAmplify;
             }
 
-            if (power < 0.0f) {
+            if (power < 0.0f)
+			{
                 power = 0.0f;
             }
 
-			//AddExplosionForce2D(tempRb2d, power + pgs.bazookaForce, transform.position, radius);
+			Vector2 v = tempRb2d.velocity;
+			v.y = 0.0f;
+			tempRb2d.velocity = v;
+
 			AddExplosionForce2D(tempRb2d, power, transform.position, radius);
         }
 	}
@@ -69,7 +66,8 @@ public class ForceGunProjectile : MonoBehaviour
 	{
 		lifeTimeCounter += Time.deltaTime;
 
-		if (lifeTimeCounter > lifeTime) {
+		if (lifeTimeCounter > lifeTime)
+		{
 			lifeTimeCounter = 0.0f;
 
 			Destroy (this.gameObject);

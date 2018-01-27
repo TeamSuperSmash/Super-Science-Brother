@@ -12,7 +12,7 @@ public class FuncMassBombInc : FunctionalItem
 	public override void UseItem()
 	{
 		GameObject go = Instantiate(massBombPrefab, new Vector2(player.ragdoll.body.position.x + itemSpawnDist, player.ragdoll.body.position.y), transform.rotation);
-		go.GetComponent<MassBombProjectile>().type = BombType.BombIncrease;
+		go.GetComponent<MassBombProjectile>().isBombIncrease = true;
 
 		player.inventorySlot = ItemType.Nothing;
 	}

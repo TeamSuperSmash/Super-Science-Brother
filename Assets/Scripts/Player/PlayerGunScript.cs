@@ -102,16 +102,16 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 				if(isDraining)
 				{
-					if (targetPlayer.playerMass < PlayerSettings.maxMass)
+					if (targetPlayer.mass < PlayerSettings.maxMass)
 					{
-						targetPlayer.playerMass += massTransferRate * Time.deltaTime;
+						targetPlayer.mass += massTransferRate * Time.deltaTime;
 					}
 				}
 				else
 				{
-					if (targetPlayer.playerMass > PlayerSettings.minMass)
+					if (targetPlayer.mass > PlayerSettings.minMass)
 					{
-						targetPlayer.playerMass -= massTransferRate * Time.deltaTime;
+						targetPlayer.mass -= massTransferRate * Time.deltaTime;
 					}
 				}
 			}

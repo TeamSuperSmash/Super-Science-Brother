@@ -34,7 +34,7 @@ public class PlayerScript : MonoBehaviour
 	public SpriteRenderer itemSprite;
 
 	[Header("Resource")]
-	public float playerMass = 50.0f;
+	public float mass = 50.0f;
 	public ItemType inventorySlot;
 
 	[Header("Speed")]
