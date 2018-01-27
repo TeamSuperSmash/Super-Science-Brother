@@ -12,6 +12,7 @@ TagManager:
   - Bazooka
   - Fatboy
   - Tile
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Ground
   - 
   - 
   - 
