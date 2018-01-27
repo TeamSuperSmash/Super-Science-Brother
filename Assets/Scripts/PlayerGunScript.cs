@@ -9,8 +9,14 @@ public class PlayerGunScript : MonoBehaviour
 	public float hitRate = 1.0f;
 	public float hitRateCounter = 0.0f;
 
+	// How much mass is changed per hit rate.
+	public float massTransferRate = 10.0f;
+
 	RaycastHit2D hitPositiveMode;
 	RaycastHit2D hitNegativeMode;
+
+	public Transform forceOutPos;
+	public GameObject forceEffect;
 
 	// Use this for initialization
 	void Start ()
@@ -25,6 +31,12 @@ public class PlayerGunScript : MonoBehaviour
 			PlayerShoot0 ();
 		} else if (Input.GetButton ("Fire2")) {
 			PlayerShoot1 ();
+		} else {
+			hitRateCounter = 0.0f;
+		}
+
+		if (Input.GetKeyDown (KeyCode.F)) {
+			ForceShoot ();
 		}
 	}
 
@@ -42,7 +54,7 @@ public class PlayerGunScript : MonoBehaviour
 			Debug.DrawLine (firePointPosition, hitPositiveMode.point, Color.red);
 			Debug.Log ("Player expanding an object!");
 
-			if (hitPositiveMode.transform.CompareTag ("Player0")) {
+			if (hitPositiveMode.transform.CompareTag ("Player")) {
 
 				hitRateCounter += Time.deltaTime;
 
@@ -50,10 +62,8 @@ public class PlayerGunScript : MonoBehaviour
 					hitRateCounter = 0.0f;
 
 					GameObject tempPlayer = hitPositiveMode.transform.gameObject;
-					tempPlayer.GetComponent<SampleMassTest> ().objectMass += 10.0f;
+					tempPlayer.GetComponentInParent<PlayerScript> ().playerMass += massTransferRate;
 				}			
-			} else {
-				hitRateCounter = 0.0f;
 			}
 		}
 	}
@@ -72,7 +82,7 @@ public class PlayerGunScript : MonoBehaviour
 			Debug.DrawLine (firePointPosition, hitNegativeMode.point, Color.red);
 			Debug.Log ("Player detracting an object!");
 
-			if (hitNegativeMode.transform.CompareTag ("Player0")) {
+			if (hitNegativeMode.transform.CompareTag ("Player")) {
 
 				hitRateCounter += Time.deltaTime;
 
@@ -80,11 +90,14 @@ public class PlayerGunScript : MonoBehaviour
 					hitRateCounter = 0.0f;
 
 					GameObject tempPlayer = hitNegativeMode.transform.gameObject;
-					tempPlayer.GetComponent<SampleMassTest> ().objectMass -= 10.0f;
+					tempPlayer.GetComponentInParent<PlayerScript> ().playerMass -= massTransferRate;
 				}			
-			} else {
-				hitRateCounter = 0.0f;
 			}
 		}
+	}
+
+	void ForceShoot ()
+	{
+		Instantiate (forceEffect, new Vector3 (forceOutPos.transform.position.x, forceOutPos.transform.position.y, 0.0f), Quaternion.identity);
 	}
 }
