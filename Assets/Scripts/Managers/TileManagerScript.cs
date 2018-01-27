@@ -6,15 +6,7 @@ public class TileManagerScript : MonoBehaviour {
 
 	public static TileManagerScript instance;
 
-	//Temp mat boost variable for player
-	public float matChangeSpeed = 5f;
-	public float matUpdateValue = 50f;
-
-	//Temp variable
-	//public bool curGunMode = false;
-
 	//Temporary tile array. Will be replaced by array of sprites
-	public Sprite[] tileTypes;
 	public GameObject tilePrefab;
 
 	public List<TileScript> tileList = new List<TileScript>();

@@ -24,12 +24,11 @@ public class FatboyProjectile : MonoBehaviour {
         }
 	}
 
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnTriggerEnter2D(Collider2D coll)
 	{
-        if (coll.gameObject.CompareTag("Tile")) 
+        if (coll.tag == "Tile") 
 		{
-            coll.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            coll.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+			coll.GetComponent<TileScript>().SetAlive(false);
         }
     }
 }

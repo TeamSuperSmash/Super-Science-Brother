@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212944187089081732}
   - component: {fileID: 114650487965705936}
   - component: {fileID: 61106970811561756}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TilePrefab
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  mass: 0
+  mass: 100
   isAlive: 0
   hasItem: 0
 --- !u!212 &212944187089081732

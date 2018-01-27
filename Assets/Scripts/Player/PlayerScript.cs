@@ -33,8 +33,9 @@ public class PlayerScript : MonoBehaviour
 	public FunctionalItem[] funcItems;
 	public SpriteRenderer itemSprite;
 
-	[Header("Resource")]
-	public float mass = 50.0f;
+	[Header("Stats")]
+	public MaterialType type;
+	public float mass = 150.0f;
 	public ItemType inventorySlot;
 
 	[Header("Speed")]
@@ -70,10 +71,37 @@ public class PlayerScript : MonoBehaviour
 		}
 	}
 
+	public void SetMaterial(Sprite sprite)
+	{
+		ragdoll.head.GetComponent<SpriteRenderer>().sprite = sprite;
+		ragdoll.body.GetComponent<SpriteRenderer>().sprite = sprite;
+		ragdoll.hand_L.GetComponent<SpriteRenderer>().sprite = sprite;
+		ragdoll.hand_R.GetComponent<SpriteRenderer>().sprite = sprite;
+		ragdoll.leg_L.GetComponent<SpriteRenderer>().sprite = sprite;
+		ragdoll.leg_R.GetComponent<SpriteRenderer>().sprite = sprite;
+	}
+
+	void Start()
+	{
+		SetMaterial(type.GetSprite());
+	}
+
 	void Update()
 	{
 		UseItem ();
 		HeldItem();
+
+		if(mass <= type.GetPrevMaterial().GetMass())
+		{
+			type = type.GetPrevMaterial();
+			SetMaterial(type.GetSprite());
+		}
+
+		if(mass >= type.GetNextMaterial().GetMass())
+		{
+			type = type.GetNextMaterial();
+			SetMaterial(type.GetSprite());
+		}
 	}
 
 	void LateUpdate()

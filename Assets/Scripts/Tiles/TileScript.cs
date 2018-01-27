@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public enum TileType
+public enum MaterialType
 {
 	Glass = 0,
 	Wood,
@@ -17,12 +17,12 @@ public enum TileType
 public class TileScript : MonoBehaviour
 {
 	// Developer
-	private SpriteRenderer rend;
+	public SpriteRenderer rend;
 	private BoxCollider2D coll;
 
 	[Header("Stats")]
-	public TileType type;
-	public float mass;
+	public MaterialType type;
+	public float mass = 150.0f;
 	public bool isAlive;
 	public bool hasItem;
 
@@ -34,29 +34,21 @@ public class TileScript : MonoBehaviour
 
 		//rend.sprite = TileManagerScript.instance.tileTypes[type.GetInt()];
 		mass = type.GetMass();
+		rend.sprite = type.GetSprite();
 	}
 
-	void OnMouseOver()
+	void Update()
 	{
-		if(Input.GetButton("Fire1"))
+		if(mass <= type.GetPrevMaterial().GetMass())
 		{
-			mass += Time.deltaTime * TileManagerScript.instance.matChangeSpeed;
-
-			if(mass >= type.GetNextTile().GetMass())
-			{
-				type = type.GetNextTile();
-				rend.sprite = TileManagerScript.instance.tileTypes[type.GetInt()];
-			}
+			type = type.GetPrevMaterial();
+			rend.sprite = type.GetSprite();
 		}
-		else if(Input.GetButton("Fire2"))
-		{
-			mass -= Time.deltaTime * TileManagerScript.instance.matChangeSpeed;
 
-			if(mass <= type.GetPrevTile().GetMass())
-			{
-				type = type.GetPrevTile();
-				rend.sprite = TileManagerScript.instance.tileTypes[type.GetInt()];
-			}
+		if(mass >= type.GetNextMaterial().GetMass())
+		{
+			type = type.GetNextMaterial();
+			rend.sprite = type.GetSprite();
 		}
 	}
 
@@ -64,7 +56,6 @@ public class TileScript : MonoBehaviour
 	{
 		isAlive = alive;
 		rend.enabled = alive;
-		coll.isTrigger = alive;
-
+		coll.isTrigger = !alive;
 	}
 }

@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ceef3cebffe68419c65a1dc02eba42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombRadi: 0
-  forceX: 0
-  forceY: 0
+  bombRadius: 3
+  forceX: 10
+  forceY: 2
   delay: 1.5
-  type: 0
+  isBombIncrease: 0
 --- !u!212 &212459384344168576
 SpriteRenderer:
   m_ObjectHideFlags: 1

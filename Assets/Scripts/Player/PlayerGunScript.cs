@@ -36,29 +36,6 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 		CheckForceGun();
 	}
 
-	void CheckForceGun()
-	{
-		if (!isCooldownForceGun)
-		{
-			if (Input.GetKeyDown (KeyCode.F))
-			{
-				forceGunTimer = forceGunCooldown;
-				isCooldownForceGun = true;
-
-				ForceShoot ();
-			}
-		}
-		else
-		{
-			forceGunTimer -= Time.deltaTime;
-			if (forceGunTimer <= 0.0f)
-			{
-				forceGunTimer = forceGunCooldown;
-				isCooldownForceGun = false;
-			}
-		}
-	}
-
 	void CheckMassGun ()
 	{
 		if (Input.GetButton ("Fire1"))
@@ -82,6 +59,29 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 		}
 	}
 
+	void CheckForceGun()
+	{
+		if (!isCooldownForceGun)
+		{
+			if (Input.GetKeyDown (KeyCode.F))
+			{
+				forceGunTimer = forceGunCooldown;
+				isCooldownForceGun = true;
+
+				ForceShoot ();
+			}
+		}
+		else
+		{
+			forceGunTimer -= Time.deltaTime;
+			if (forceGunTimer <= 0.0f)
+			{
+				forceGunTimer = forceGunCooldown;
+				isCooldownForceGun = false;
+			}
+		}
+	}
+
 	void MassShoot()
 	{
 		Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
@@ -102,16 +102,39 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 				if(isDraining)
 				{
-					if (targetPlayer.mass < PlayerSettings.maxMass)
+					if (player.mass <= PlayerSettings.maxMass && targetPlayer.mass >= PlayerSettings.minMass)
 					{
-						targetPlayer.mass += massTransferRate * Time.deltaTime;
+						targetPlayer.mass -= massTransferRate * Time.deltaTime;
+						player.mass += massTransferRate * Time.deltaTime;
 					}
 				}
 				else
 				{
-					if (targetPlayer.mass > PlayerSettings.minMass)
+					if (player.mass >= PlayerSettings.minMass && targetPlayer.mass <= PlayerSettings.maxMass)
 					{
-						targetPlayer.mass -= massTransferRate * Time.deltaTime;
+						targetPlayer.mass += massTransferRate * Time.deltaTime;
+						player.mass -= massTransferRate * Time.deltaTime;
+					}
+				}
+			}
+			else if(hit.collider.CompareTag("Tile"))
+			{
+				TileScript targetTile = hit.collider.gameObject.GetComponent<TileScript>();
+
+				if(isDraining)
+				{
+					if (player.mass <= PlayerSettings.maxMass && targetTile.mass >= PlayerSettings.minMass)
+					{
+						targetTile.mass -= massTransferRate * Time.deltaTime;
+						player.mass += massTransferRate * Time.deltaTime;
+					}
+				}
+				else
+				{
+					if (player.mass >= PlayerSettings.minMass && targetTile.mass <= PlayerSettings.maxMass)
+					{
+						targetTile.mass += massTransferRate * Time.deltaTime;
+						player.mass -= massTransferRate * Time.deltaTime;
 					}
 				}
 			}
