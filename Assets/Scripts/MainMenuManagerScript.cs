@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenuManagerScript : MonoBehaviour
 {
-	public string startGameScene;
-	public GameObject[] menuWindows;
+    public string startGameScene;
+    public string tutorialGameScene;
+    public GameObject[] menuWindows;
+    public GameObject[] firstSelected;
 
-	public void StartGame()
+    
+
+    public void StartGame()
 	{
 		SceneManager.LoadScene(startGameScene);
-	}
+    }
 
-	public void ExitGame()
+    public void StartTutorial()
+    {
+        SceneManager.LoadScene(tutorialGameScene);
+    }
+
+    public void ExitGame()
 	{
 		Application.Quit();
 	}
@@ -22,7 +32,8 @@ public class MainMenuManagerScript : MonoBehaviour
 	public void OpenMenu(int menu)
 	{
 		menuWindows[menu].SetActive(true);
-	}
+        EventSystem.current.SetSelectedGameObject(firstSelected[menu]);
+    }
 
 	public void CloseMenu(int menu)
 	{
