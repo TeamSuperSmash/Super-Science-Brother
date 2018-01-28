@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine;
 
 public class PlayerGunScript : MonoBehaviour, PlayerComponent
 {
@@ -38,12 +39,12 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 	void CheckMassGun ()
 	{
-		if (Input.GetButton ("Fire1"))
+		if (Input.GetButton (player.ctrlPrefix + player.controls.gunDec))
 		{
 			usingMassGun = true;
 			isDraining = false;
 		}
-		else if (Input.GetButton ("Fire2"))
+		else if (Input.GetButton (player.ctrlPrefix + player.controls.gunInc))
 		{
 			usingMassGun = true;
 			isDraining = true;
@@ -63,7 +64,7 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 	{
 		if (!isCooldownForceGun)
 		{
-			if (Input.GetKeyDown (KeyCode.F))
+			if (Input.GetButtonDown (player.ctrlPrefix + player.controls.gunForce))
 			{
 				forceGunTimer = forceGunCooldown;
 				isCooldownForceGun = true;
@@ -84,12 +85,17 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 	void MassShoot()
 	{
-		Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
-		Vector2 firePointPosition = new Vector2 (player.ragdoll.fireSpot.position.x, player.ragdoll.fireSpot.position.y);
+        Vector2 diff = new Vector2(Input.GetAxis(player.ctrlPrefix + player.controls.aimXAxis), Input.GetAxis(player.ctrlPrefix + player.controls.aimYAxis));
+        //Vector2 diff = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (diff.sqrMagnitude < 0.1f) return;
 
-		RaycastHit2D hit = Physics2D.Raycast (firePointPosition, (mousePosition - firePointPosition) * 1000.0f, 100.0f, layerToHit);
+        //Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
+        Vector2 firePointPosition = new Vector2(player.ragdoll.fireSpot.position.x, player.ragdoll.fireSpot.position.y);
 
-		Debug.DrawLine (firePointPosition, (mousePosition - firePointPosition) * 1000.0f, (isDraining ? Color.green : Color.yellow));
+        //RaycastHit2D hit = Physics2D.Raycast(firePointPosition, (mousePosition - firePointPosition) * 1000.0f, 100.0f, layerToHit);
+        RaycastHit2D hit = Physics2D.Raycast(firePointPosition, diff * 1000.0f, 100.0f, layerToHit);
+
+        Debug.DrawLine (firePointPosition, diff * 1000.0f, (isDraining ? Color.green : Color.yellow));
 		Debug.Log ("Player shoot the lazer!");
 
 		if (hit)
