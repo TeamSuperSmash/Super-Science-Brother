@@ -26,7 +26,7 @@ public class ItemSpawnManagerScript : MonoBehaviour
 		if(instance == null) instance = this;
 	}
 
-	void Update()
+    void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Space))
 		{

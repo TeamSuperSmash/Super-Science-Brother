@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager mInstance;
 
     public bool tutorialOpened = false;
+    bool oneFrame = false;
 
     public GameObject firstTutorialGO;
     public GameObject[] firstTutorial;
@@ -19,6 +21,72 @@ public class TutorialManager : MonoBehaviour
     void Awake()
     {
         mInstance = this;
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("J1AButton"))
+        {
+            SceneManager.LoadScene(1);
+            //CloseFirstTutorial();
+        }
+
+        if (Input.GetAxis("J1XAxis") >= 1f)
+        {
+            if (tutorialOpened)
+            {
+                if (!oneFrame)
+                {
+                    if (i < firstTutorial.Length - 1)
+                    {
+                        NextFirstTutorial();
+                        oneFrame = true;
+                    }
+                }
+
+            }
+            else
+            {
+                if (!oneFrame)
+                {
+                    NextMainTutorial();
+                    oneFrame = true;
+                }
+            }
+
+        }
+        else if (Input.GetAxis("J1XAxis") <= -1f)
+        {
+            if (tutorialOpened)
+            {
+                if (!oneFrame)
+                {
+                    if (i > 0)
+                    {
+                        BackFirstTutorial();
+                        oneFrame = true;
+                    }
+                }
+            }
+            else
+            {
+                if (!oneFrame)
+                {
+                    if (i > 0)
+                    {
+                        BackMainTutorial();
+                        oneFrame = true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (oneFrame)
+            {
+                oneFrame = false;
+            }
+        }
     }
 
     public void NextFirstTutorial()

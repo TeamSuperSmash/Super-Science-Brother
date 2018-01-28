@@ -35,8 +35,7 @@ public class TileScript : MonoBehaviour
 	{
 		rend = GetComponent<SpriteRenderer>();
 		coll = GetComponent<BoxCollider2D>();
-
-		//rend.sprite = TileManagerScript.instance.tileTypes[type.GetInt()];
+        
 		mass = type.GetMass() + 25f;
 		rend.sprite = type.GetSprite();
 
@@ -85,14 +84,14 @@ public class TileScript : MonoBehaviour
 		if(mass <= type.GetPrevMaterial().GetMass())
 		{
 			type = type.GetPrevMaterial();
-			rend.sprite = type.GetSprite();
-		}
+            rend.sprite = type.GetSprite();
+        }
 
 		if(mass >= type.GetNextMaterial().GetMass())
 		{
 			type = type.GetNextMaterial();
-			rend.sprite = type.GetSprite();
-		}
+            rend.sprite = type.GetSprite();
+        }
 	}
 
 	public void SetAlive(bool alive)
