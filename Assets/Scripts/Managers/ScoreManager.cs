@@ -9,6 +9,7 @@ public class PlayerScoreData
 {
 	public bool isAlive = true;
 	public int score = 0;
+	public GameObject go;
 }
 
 public class ScoreManager : MonoBehaviour
@@ -37,6 +38,19 @@ public class ScoreManager : MonoBehaviour
 		time = readyTime;
 		already = false;
 		isRunning = true;
+
+		/*
+		for(int i = 0; i < Input.GetJoystickNames().Length; i++)
+		{
+			players[i].isAlive = true;
+		}
+
+		for(int i = Input.GetJoystickNames().Length; i < 4; i++)
+		{
+			players[i].isAlive = false;
+			players[i].go.SetActive(false);
+		}
+		*/
 	}
 	
 	// Update is called once per frame
@@ -49,6 +63,17 @@ public class ScoreManager : MonoBehaviour
 
 		timeText.SetText ((Mathf.FloorToInt (time)).ToString ());
 
+
+		int aliveCount = 0;
+
+		for (int i = 0; i < players.Count; i++) {
+			if (players [i].isAlive) {
+				aliveCount++;
+			}
+		}
+
+		if(aliveCount <= 1) time = 0.0f;
+
 		if (time <= 0.0f) {
 
 			if (!already) {
@@ -56,7 +81,7 @@ public class ScoreManager : MonoBehaviour
 				time = maxTime;
 				return;
 			}
-
+			/*
 			int aliveCount = 0;
 
 			for (int i = 0; i < players.Count; i++) {
@@ -66,6 +91,7 @@ public class ScoreManager : MonoBehaviour
 			}
 
 			Debug.Log (aliveCount.ToString ());
+			*/
 
 			int highScorer = -1;
 

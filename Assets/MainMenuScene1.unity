@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c6cc461bcc73c4daa6e96d7be4d969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startGameScene: '[NO EDIT]WorkingScene'
+  startGameScene: MainMenuScene2
   tutorialGameScene: 
   menuWindows:
   - {fileID: 438360361}

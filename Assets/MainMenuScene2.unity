@@ -5430,11 +5430,6 @@ Prefab:
       propertyPath: firstSelected.Array.data[2]
       value: 
       objectReference: {fileID: 2133520830}
-    - target: {fileID: 114315899422471428, guid: 99c0882e458649d4a9004c41e0d052e1,
-        type: 2}
-      propertyPath: startGameScene
-      value: '[NO EDIT]WorkingScene'
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99c0882e458649d4a9004c41e0d052e1, type: 2}
   m_IsPrefabParent: 0
