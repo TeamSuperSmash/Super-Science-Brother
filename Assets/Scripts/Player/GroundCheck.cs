@@ -16,7 +16,19 @@ public class GroundCheck : MonoBehaviour//, PlayerComponent
 	public float checkDistance = 0.5f;
 	public bool isGrounded = false;
 
-	void Update()
+	MaterialType playerMatType;
+	MaterialType tileMatType;
+	GameObject tileItself;
+
+	public float timeToBreak = 0.0f;
+	public float timeToBreakCounter = 0.0f;
+
+	void Start ()
+	{
+		playerMatType = GetComponentInParent<PlayerScript> ().type;
+	}
+
+	void Update ()
 	{
 		Vector2 position = transform.position;
 		Vector2 direction = Vector2.down;
@@ -24,7 +36,26 @@ public class GroundCheck : MonoBehaviour//, PlayerComponent
 		Debug.DrawRay (transform.position, Vector2.down, Color.green);
 		RaycastHit2D hit = Physics2D.Raycast (position, direction, checkDistance, hitGroundLayer);
 
-		if (hit) isGrounded = true;
-		else isGrounded = false;
+		if (hit)
+			isGrounded = true;
+		else
+			isGrounded = false;
+
+		if (hit.collider) {
+			// Temp tile variable to check between player and tile.
+			tileMatType = hit.transform.gameObject.GetComponent<TileScript> ().type;
+
+			// Higher the number, heavier the player.
+			if (playerMatType - tileMatType > 0) {
+			
+				Debug.Log ("Player heavier than the tile!");
+
+				hit.transform.gameObject.SetActive (false);
+
+			} else if (playerMatType - tileMatType < 1) {
+
+				Debug.Log ("Player lighter than the tile!");
+			}
+		}
 	}
 }
