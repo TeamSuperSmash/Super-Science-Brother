@@ -8,52 +8,34 @@ public enum AudioClipID
 	// Main Menu
 	BGM_MAIN_MENU = 0,
 
-	// Lose & Win
-	BGM_LOSE = 1,
-	BGM_WIN = 2,
+	// Events
+	SFX_EXPMASSBOMB = 1,
+	SFX_LOSE = 2,
+    SFX_RESTORETILES = 3,
+    SFX_WIN = 4,
 
-	// Levels
-	BGM_LEVEL1 = 3,
-	BGM_LEVEL2 = 4,
-	BGM_LEVEL3 = 5,
-	BGM_LEVEL4 = 6,
-	BGM_LEVEL5 = 7,
+    // Misc
+    SFX_BREAKTHRESHOLD1 = 5,
+    SFX_BREAKTHRESHOLD2 = 6,
+    SFX_FATBOY = 7,
+    SFX_FORCEPUSH = 8,
+    SFX_GETTINGPUSH = 9,
+    SFX_MASSGUN1 = 10,
+    SFX_MASSGUN2 = 11,
+    SFX_MASSSHIELD = 12,
 
-	// Creepy
-	BGM_CREEPY = 8,
+    // Voices
+    SFX_JUMP1 = 13,
+    SFX_JUMP2 = 14,
+    SFX_JUMP3 = 15,
+    SFX_JUMP4 = 16,
 
-	// UI
-	SFX_UI_BUTTON = 100,
+    // Musics
+    BGM_LEVEL1ARENA = 100,
+    BGM_LEVEL2ARENA = 101,
+    BGM_LEVEL3ARENA = 102,
 
-	// Saferoom Door
-	SFX_SR_OPENDOOR = 101,
-	SFX_SR_CLOSEDOOR = 102,
-
-	// Items
-	SFX_IT_BLACKFMONEY = 103,
-	SFX_IT_VACCINE = 104,
-
-	// Contorl Panel
-	SFX_CONTROLP_LACTIVATED = 105,
-
-	// Player
-	SFX_PL_WALKING = 108,
-	SFX_PL_RECEIVEDDMG = 109,
-	SFX_PL_JUMPING = 110,
-	SFX_PL_LANDING = 111,
-
-	// Monsters
-	SFX_MS_RECEIVEDMG = 112,
-
-	// Guns
-	SFX_GUN_RELOAD = 113,
-	SFX_GUN_SHOOTINGNORMAL = 114,
-	SFX_GUN_SHOOTINGLASER = 115,
-	SFX_GUN_CHANGETYPEBULLET = 116,
-	SFX_GUN_SHOOTINGMPA = 117,
-	SFX_GUN_SWITCHMPA = 118,
-
-	TOTAL = 9001
+    TOTAL = 9001
 }
 
 [System.Serializable]
@@ -266,6 +248,6 @@ public class SoundManagerScript : MonoBehaviour
 
     public void PlayButtonSound()
     {
-        SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_UI_BUTTON);
+        //SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_UI_BUTTON);
     }
 }
