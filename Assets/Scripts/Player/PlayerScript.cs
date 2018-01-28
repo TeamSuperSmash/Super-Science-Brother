@@ -83,7 +83,7 @@ public class PlayerScript : MonoBehaviour
 
 	void Start()
 	{
-		SetMaterial(type.GetSprite());
+		//SetMaterial(type.GetSprite());
 	}
 
 	void Update()
@@ -94,13 +94,13 @@ public class PlayerScript : MonoBehaviour
 		if(mass <= type.GetPrevMaterial().GetMass())
 		{
 			type = type.GetPrevMaterial();
-			SetMaterial(type.GetSprite());
+			//SetMaterial(type.GetSprite());
 		}
 
 		if(mass >= type.GetNextMaterial().GetMass())
 		{
 			type = type.GetNextMaterial();
-			SetMaterial(type.GetSprite());
+			//SetMaterial(type.GetSprite());
 		}
 	}
 

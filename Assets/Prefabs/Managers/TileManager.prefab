@@ -51,13 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42716e0408870a2439ba6f70ec5df633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matChangeSpeed: 15
-  matUpdateValue: 50
-  tileTypes:
-  - {fileID: 21300000, guid: adcf3c38925824c4f98452afb3f28217, type: 3}
-  - {fileID: 21300000, guid: cfadc78ce4462e040a9e69869f0630ff, type: 3}
-  - {fileID: 21300000, guid: c55360b8598a51d4ebfe4590722b91a2, type: 3}
-  - {fileID: 21300000, guid: c104d4d685dc23a4e956c45acd04f70c, type: 3}
-  - {fileID: 21300000, guid: 185752b901a7d7e4eb9f197224a81fdd, type: 3}
   tilePrefab: {fileID: 1273569399027722, guid: b8d16919aa8026b4aa39729bae30a30f, type: 2}
   tileList: []

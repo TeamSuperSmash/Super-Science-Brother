@@ -56,6 +56,12 @@ MonoBehaviour:
     maxX: 0
     minY: -5
     maxY: 0
-  itemSprites: []
-  itemPrefab: {fileID: 1601984184321424, guid: aae5b9cb6724f9646a3d5f8928fd67fa, type: 2}
+  itemSprites:
+  - {fileID: 21300000, guid: 6e15e7eab25f75144a436ffdf5eb6da6, type: 3}
+  - {fileID: 21300000, guid: 1dcfaabb1f09180409611885c50a4890, type: 3}
+  - {fileID: 21300000, guid: d441104a341217044aa6f81a84adac49, type: 3}
+  - {fileID: 21300000, guid: 32d28738dae78ea4f8b67fcab89f7c90, type: 3}
+  - {fileID: 21300000, guid: c82567ebd57cd4644a97becda6f9b6ef, type: 3}
+  - {fileID: 21300000, guid: ab7faa3ac0c8d9b4ab9a1cef75b1c766, type: 3}
+  itemPrefab: {fileID: 1672550395837186, guid: 669840c3897f95a40a3f6e5f97b7d0e6, type: 2}
   player: {fileID: 0}
