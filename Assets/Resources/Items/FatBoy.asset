@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: FatBoy
   m_EditorClassIdentifier: 
   type: 5
-  sprite: {fileID: 21300000, guid: 38a2d97eddbe6424c91ca14d700bc75a, type: 3}
+  sprite: {fileID: 21300000, guid: ab7faa3ac0c8d9b4ab9a1cef75b1c766, type: 3}

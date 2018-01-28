@@ -42,6 +42,8 @@ namespace TMPro.Examples
         private Vector3 moveVector;
         private float mouseWheel;
 
+		public LineRenderer lineRenderer;
+
         // Controls for Touches on Mobile devices
         //private float prev_ZoomDelta;
 
@@ -215,6 +217,7 @@ namespace TMPro.Examples
                         }
 
                     }
+					//lineRenderer = 
                 }
 
 
