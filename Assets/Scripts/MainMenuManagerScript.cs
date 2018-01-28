@@ -7,71 +7,74 @@ using UnityEngine.EventSystems;
 
 public class MainMenuManagerScript : MonoBehaviour
 {
-    public string startGameScene;
-    public string tutorialGameScene;
-    public GameObject[] menuWindows;
-    public GameObject[] firstSelected;
+	public string startGameScene;
+	public string tutorialGameScene;
+	public GameObject[] menuWindows;
+	public GameObject[] firstSelected;
 
-    
-
-    public void StartGame()
+	void Awake ()
 	{
-		SceneManager.LoadScene(startGameScene);
-    }
-
-    public void StartTutorial()
-    {
-        SceneManager.LoadScene(tutorialGameScene);
-    }
-
-    public void ExitGame()
-	{
-		Application.Quit();
+		SoundManagerScript.Instance.PlayBGM (AudioClipID.BGM_MAIN_MENU);
 	}
 
-	public void OpenMenu(int menu)
+	public void StartGame ()
 	{
-		menuWindows[menu].SetActive(true);
-        EventSystem.current.SetSelectedGameObject(firstSelected[menu]);
-    }
-
-	public void CloseMenu(int menu)
-	{
-		menuWindows[menu].SetActive(false);
+		SceneManager.LoadScene (startGameScene);
 	}
 
-	public void SetupBGM(GameObject slider)
+	public void StartTutorial ()
 	{
-		slider.GetComponent<Slider>().value = SoundManagerScript.Instance.bgmVolume;
+		SceneManager.LoadScene (tutorialGameScene);
 	}
 
-	public void SetupSFX(GameObject slider)
+	public void ExitGame ()
 	{
-		slider.GetComponent<Slider>().value = SoundManagerScript.Instance.sfxVolume;
+		Application.Quit ();
 	}
 
-	public void SetupBrightness(GameObject slider)
+	public void OpenMenu (int menu)
 	{
-		slider.GetComponent<Slider>().value = SoundManagerScript.Instance.brightness;
+		menuWindows [menu].SetActive (true);
+		EventSystem.current.SetSelectedGameObject (firstSelected [menu]);
 	}
 
-	public void ChangeBGM(GameObject slider)
+	public void CloseMenu (int menu)
 	{
-		SoundManagerScript.Instance.SetBGMVolume(slider.GetComponent<Slider>().value);
+		menuWindows [menu].SetActive (false);
 	}
 
-	public void ChangeSFX(GameObject slider)
+	public void SetupBGM (GameObject slider)
 	{
-		SoundManagerScript.Instance.SetSFXVolume(slider.GetComponent<Slider>().value);
+		slider.GetComponent<Slider> ().value = SoundManagerScript.Instance.bgmVolume;
 	}
 
-	public void ChangeBrightness(GameObject slider)
+	public void SetupSFX (GameObject slider)
 	{
-		SoundManagerScript.Instance.SetBrightness(slider.GetComponent<Slider>().value);
+		slider.GetComponent<Slider> ().value = SoundManagerScript.Instance.sfxVolume;
 	}
 
-    public void PlayButtonSound()
-    {
-        //SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_UI_BUTTON);
-    }
+	public void SetupBrightness (GameObject slider)
+	{
+		slider.GetComponent<Slider> ().value = SoundManagerScript.Instance.brightness;
+	}
+
+	public void ChangeBGM (GameObject slider)
+	{
+		SoundManagerScript.Instance.SetBGMVolume (slider.GetComponent<Slider> ().value);
+	}
+
+	public void ChangeSFX (GameObject slider)
+	{
+		SoundManagerScript.Instance.SetSFXVolume (slider.GetComponent<Slider> ().value);
+	}
+
+	public void ChangeBrightness (GameObject slider)
+	{
+		SoundManagerScript.Instance.SetBrightness (slider.GetComponent<Slider> ().value);
+	}
+
+	public void PlayButtonSound ()
+	{
+		//SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_UI_BUTTON);
+	}
 }
