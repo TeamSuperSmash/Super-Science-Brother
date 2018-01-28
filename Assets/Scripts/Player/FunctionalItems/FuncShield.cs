@@ -10,34 +10,39 @@ public class FuncShield : FunctionalItem
 	public float timerMassShield = 10f;
 	public bool massShieldAlive;
 
-	void Start()
+	bool playOnce = false;
+
+	void Start ()
 	{
 		timerMassShield = maxTimeMassShield;
 	}
 
-	void Update()
+	void Update ()
 	{
-		if(massShieldAlive)
-		{
+		if (massShieldAlive) {
+			if (!playOnce) {
+				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_MASSSHIELD);
+				playOnce = true;
+			}
+
 			timerMassShield -= Time.deltaTime;
 
-			if(timerMassShield < 0)
-			{
+			if (timerMassShield < 0) {
 				timerMassShield = maxTimeMassShield;
 				massShieldAlive = false;
-				shieldPrefab.SetActive(false);
+				shieldPrefab.SetActive (false);
 				player.inventorySlot = ItemType.Nothing;
+				playOnce = false;
 			}
 		}
 	}
 
-	public override void UseItem()
+	public override void UseItem ()
 	{
-		if(!massShieldAlive)
-		{
+		if (!massShieldAlive) {
 			timerMassShield = maxTimeMassShield;
 			massShieldAlive = true;
-			shieldPrefab.SetActive(true);
+			shieldPrefab.SetActive (true);
 		}
 	}
 

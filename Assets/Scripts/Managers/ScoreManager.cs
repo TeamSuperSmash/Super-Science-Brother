@@ -7,113 +7,109 @@ using TMPro;
 [System.Serializable]
 public class PlayerScoreData
 {
-    public bool isAlive = true;
-    public int score = 0;
+	public bool isAlive = true;
+	public int score = 0;
 }
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager instance;
+	public static ScoreManager instance;
 
-    private void Awake()
-    {
-        if(instance == null) instance = this;
-    }
+	private void Awake ()
+	{
+		if (instance == null)
+			instance = this;
+	}
 
-    public TMP_Text timeText;
-    public TMP_Text ggText;
+	public TMP_Text timeText;
+	public TMP_Text ggText;
 
-    public bool isRunning = true;
-    public float time;
-    public float maxTime = 90.0f;
-    public float readyTime = 4.0f;
-    public bool already = false;
-    public List<PlayerScoreData> players;
+	public bool isRunning = true;
+	public float time;
+	public float maxTime = 90.0f;
+	public float readyTime = 4.0f;
+	public bool already = false;
+	public List<PlayerScoreData> players;
 
-    // Use this for initialization
-    void Start ()
-    {
-        time = readyTime;
-        already = false;
-        isRunning = true;
-    }
+	// Use this for initialization
+	void Start ()
+	{
+		time = readyTime;
+		already = false;
+		isRunning = true;
+	}
 	
 	// Update is called once per frame
 	void Update ()
-    {
-        if (!isRunning) return;
+	{
+		if (!isRunning)
+			return;
 
-        time -= Time.deltaTime;
+		time -= Time.deltaTime;
 
-        timeText.SetText((Mathf.FloorToInt(time)).ToString());
+		timeText.SetText ((Mathf.FloorToInt (time)).ToString ());
 
-        if (time <= 0.0f)
-        {
+		if (time <= 0.0f) {
 
-            if (!already)
-            {
-                already = true;
-                time = maxTime;
-                return;
-            }
+			if (!already) {
+				already = true;
+				time = maxTime;
+				return;
+			}
 
-            int aliveCount = 0;
+			int aliveCount = 0;
 
-            for(int i = 0; i < players.Count; i++)
-            {
-                if (players[i].isAlive)
-                {
-                    aliveCount++;
-                }
-            }
+			for (int i = 0; i < players.Count; i++) {
+				if (players [i].isAlive) {
+					aliveCount++;
+				}
+			}
 
-            Debug.Log(aliveCount.ToString());
+			Debug.Log (aliveCount.ToString ());
 
-            int highScorer = -1;
+			int highScorer = -1;
 
-            for (int i = 0; i < players.Count; i++)
-            {
-                if (players[i].isAlive)
-                {
-                    switch(aliveCount)
-                    {
-                        case 1:
-                            players[i].score += 2;
-                            highScorer = i + 1;
-                            break;
-                        case 2:
-                            players[i].score += 1;
-                            break;
-                    }
-                }
+			for (int i = 0; i < players.Count; i++) {
+				if (players [i].isAlive) {
+					switch (aliveCount) {
+					case 1:
+						players [i].score += 2;
+						highScorer = i + 1;
+						break;
+					case 2:
+						players [i].score += 1;
+						break;
+					}
+				}
 
-                players[i].isAlive = true;
-            }
+				players [i].isAlive = true;
+			}
 
-            isRunning = false;
+			isRunning = false;
 
-            if (highScorer >= 0)
-            {
-                timeText.SetText(highScorer.ToString());
-                ggText.gameObject.SetActive(true);
-            }
-            else
-            {
-                timeText.SetText("Draw");
-                ggText.gameObject.SetActive(false);
-            }
+			if (highScorer >= 0) {
+				timeText.SetText (highScorer.ToString ());
+				ggText.gameObject.SetActive (true);
 
-            StartCoroutine(loadMainMenu());
+				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_WIN);
+			} else {
+				timeText.SetText ("Draw");
+				ggText.gameObject.SetActive (false);
+
+				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_LOSE);
+			}
+
+			StartCoroutine (loadMainMenu ());
 
 
-            already = false;
-            time = readyTime;
-        }
+			already = false;
+			time = readyTime;
+		}
 	}
 
-    IEnumerator loadMainMenu()
-    {
-        yield return new WaitForSeconds(10.0f);
-        SceneManager.LoadScene("MainMenuScene1");
-    }
+	IEnumerator loadMainMenu ()
+	{
+		yield return new WaitForSeconds (10.0f);
+		SceneManager.LoadScene ("MainMenuScene1");
+	}
 }
