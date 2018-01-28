@@ -61,6 +61,6 @@ public class MainMenuManagerScript : MonoBehaviour
 
     public void PlayButtonSound()
     {
-        SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_UI_BUTTON);
+        //SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_UI_BUTTON);
     }
 }
