@@ -21,21 +21,27 @@ public class ItemSpawnManagerScript : MonoBehaviour
 	public GameObject itemPrefab;
 	public PlayerScript player;
 
+	float timer;
+	float duration = 10f;
+
 	void Awake()
 	{
 		if(instance == null) instance = this;
 	}
 
+	void Start()
+	{
+		timer = duration;
+	}
+
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
+		timer -= Time.deltaTime;
+
+		if(timer <= 0f)
 		{
 			SpawnItem();
-		}
-
-		if(Input.GetKeyDown(KeyCode.Return))
-		{
-			RegenNeighTile();
+			timer = duration;
 		}
 	}
 

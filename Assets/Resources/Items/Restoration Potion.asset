@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: Restoration Potion
   m_EditorClassIdentifier: 
   type: 2
-  sprite: {fileID: 21300000, guid: 7bc2662506ba1a84a9dc8a7019805eb4, type: 3}
+  sprite: {fileID: 21300000, guid: d441104a341217044aa6f81a84adac49, type: 3}

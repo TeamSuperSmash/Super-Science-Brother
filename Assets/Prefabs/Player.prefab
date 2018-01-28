@@ -422,7 +422,7 @@ Transform:
   m_GameObject: {fileID: 1506847910322240}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 4, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4841568540544552}
   m_RootOrder: 0
@@ -434,7 +434,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1947288773343612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.18, y: 3, z: 0}
+  m_LocalPosition: {x: -3.81, y: 3.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4768110439322292}
@@ -937,6 +937,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7a81f2120487e4da56c6acdd6a901b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ctrlPrefix: J4
+  controls:
+    horizontalAxis: Horizontal
+    jump: AButton
+    aimXAxis: XAxis
+    aimYAxis: YAxis
+    gunInc: Increase
+    gunDec: Decrease
+    gunForce: XButton
+    useItem: YButton
   ragdoll:
     head: {fileID: 4768110439322292}
     body: {fileID: 4841568540544552}
@@ -959,12 +969,15 @@ MonoBehaviour:
   type: 0
   mass: 150
   inventorySlot: -1
+  matRend: {fileID: 212779193465626276}
+  matSprites: []
   maxSpeed: 5
   jumpForce: 50
   fallMultiplier: 2
   quickJumpMultiplier: 1.5
   isRight: 0
   isGrounded: 0
+  lastRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114920909228228076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1382,7 +1395,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 37fd1469cfb29704ab596895ef8f3fd5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2638187ecc9ee974b8f11a656ea4631d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.297}
   m_FlipX: 0
   m_FlipY: 0
@@ -1586,7 +1599,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: -0.49999997}
-  m_ConnectedAnchor: {x: 0.09499979, y: 0.747}
+  m_ConnectedAnchor: {x: 0.09500003, y: 0.24699974}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
