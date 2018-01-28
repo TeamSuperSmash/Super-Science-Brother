@@ -54,6 +54,8 @@ public class PlayerScript : MonoBehaviour
 	public MaterialType type;
 	public float mass = 150.0f;
 	public ItemType inventorySlot;
+	public SpriteRenderer matRend;
+	public Sprite[] matSprites;
 
 	[Header("Speed")]
 	public float maxSpeed;
@@ -91,12 +93,13 @@ public class PlayerScript : MonoBehaviour
 
 	public void SetMaterial(Sprite sprite)
 	{
-		ragdoll.head.GetComponent<SpriteRenderer>().sprite = sprite;
-		ragdoll.body.GetComponent<SpriteRenderer>().sprite = sprite;
-		ragdoll.hand_L.GetComponent<SpriteRenderer>().sprite = sprite;
-		ragdoll.hand_R.GetComponent<SpriteRenderer>().sprite = sprite;
-		ragdoll.leg_L.GetComponent<SpriteRenderer>().sprite = sprite;
-		ragdoll.leg_R.GetComponent<SpriteRenderer>().sprite = sprite;
+		matRend.sprite = sprite;
+//		ragdoll.head.GetComponent<SpriteRenderer>().sprite = sprite;
+//		ragdoll.body.GetComponent<SpriteRenderer>().sprite = sprite;
+//		ragdoll.hand_L.GetComponent<SpriteRenderer>().sprite = sprite;
+//		ragdoll.hand_R.GetComponent<SpriteRenderer>().sprite = sprite;
+//		ragdoll.leg_L.GetComponent<SpriteRenderer>().sprite = sprite;
+//		ragdoll.leg_R.GetComponent<SpriteRenderer>().sprite = sprite;
 	}
 
 	void Start()
@@ -110,16 +113,22 @@ public class PlayerScript : MonoBehaviour
 		UseItem ();
 		HeldItem();
 
+		Color temp = matRend.color;
+
+		temp.a = (mass - (int)type * 50f) / 100f;
+
+		matRend.color = temp; 
+
 		if(mass <= type.GetPrevMaterial().GetMass())
 		{
 			type = type.GetPrevMaterial();
-			//SetMaterial(type.GetSprite());
+			SetMaterial(type.GetSprite());
 		}
 
 		if(mass >= type.GetNextMaterial().GetMass())
 		{
 			type = type.GetNextMaterial();
-			//SetMaterial(type.GetSprite());
+			SetMaterial(type.GetSprite());
 		}
 	}
 
