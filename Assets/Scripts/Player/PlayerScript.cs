@@ -3,17 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class PlayerControls
+{
+	public string horizontalAxis;
+	public string jump;
+	public string aimXAxis;
+	public string aimYAxis;
+	public string gunInc;
+	public string gunDec;
+	public string gunForce;
+	public string useItem;
+}
+
+[System.Serializable]
 public class PlayerRagdoll
 {
-    public Transform head;
-    public Transform body;
-    public Transform hand_L;
-    public Transform hand_R;
-    public Transform leg_L;
-    public Transform leg_R;
+	public Transform head;
+	public Transform body;
+	public Transform hand_L;
+	public Transform hand_R;
+	public Transform leg_L;
+	public Transform leg_R;
 
-    public Transform gun;
-    public Transform fireSpot;
+	public Transform gun;
+	public Transform fireSpot;
 }
 
 public interface PlayerComponent
@@ -25,6 +38,10 @@ public class PlayerScript : MonoBehaviour
 {
 	//Developer
 	private Rigidbody2D rb;
+
+	[Header("Controls")]
+	public string ctrlPrefix;
+	public PlayerControls controls;
 
 	[Header("Components")]
 	public PlayerRagdoll ragdoll;
