@@ -16,6 +16,19 @@ public class PlayerRagdoll
     public Transform fireSpot;
 }
 
+[System.Serializable]
+public class PlayerControls
+{
+    public string horizontalAxis;
+    public string jump;
+    public string aimXAxis;
+    public string aimYAxis;
+    public string gunInc;
+    public string gunDec;
+    public string gunForce;
+    public string useItem;
+}
+
 public interface PlayerComponent
 {
     void SetPlayer(PlayerScript player);
@@ -26,7 +39,11 @@ public class PlayerScript : MonoBehaviour
 	//Developer
 	private Rigidbody2D rb;
 
-	[Header("Components")]
+    [Header("Controls")]
+    public string ctrlPrefix = "J1";
+    public PlayerControls controls; 
+
+    [Header("Components")]
 	public PlayerRagdoll ragdoll;
 	public GroundCheck[] groundChecks;
 	public PlayerGunScript gun;
@@ -47,6 +64,7 @@ public class PlayerScript : MonoBehaviour
 
 	[Header("Physics")]
 	public bool isGrounded = false;
+    public Quaternion lastRot;
 
 	void Awake ()
 	{
@@ -84,41 +102,43 @@ public class PlayerScript : MonoBehaviour
 	void Start()
 	{
 		SetMaterial(type.GetSprite());
-	}
+
+        lastRot = ragdoll.hand_R.rotation;
+    }
 
 	void Update()
-	{
+    {
+        HeldItem();
+
+        if (mass <= type.GetPrevMaterial().GetMass())
+        {
+            type = type.GetPrevMaterial();
+            SetMaterial(type.GetSprite());
+        }
+
+        if (mass >= type.GetNextMaterial().GetMass())
+        {
+            type = type.GetNextMaterial();
+            SetMaterial(type.GetSprite());
+        }
 		UseItem ();
-		HeldItem();
-
-		if(mass <= type.GetPrevMaterial().GetMass())
-		{
-			type = type.GetPrevMaterial();
-			SetMaterial(type.GetSprite());
-		}
-
-		if(mass >= type.GetNextMaterial().GetMass())
-		{
-			type = type.GetNextMaterial();
-			SetMaterial(type.GetSprite());
-		}
 	}
 
 	void LateUpdate()
 	{
-		Movement ();
+        Movement ();
 		Jump ();
 		Aim ();
 	}
 
 	void Movement ()
 	{
-		if (Input.GetAxis ("Horizontal") != 0.0f)
+		if (Input.GetAxis (ctrlPrefix + controls.horizontalAxis) != 0.0f)
 		{
 			Vector2 v = rb.velocity;
-			v.x = maxSpeed * Input.GetAxis ("Horizontal");
+			v.x = maxSpeed * Input.GetAxis (ctrlPrefix + controls.horizontalAxis);
 			rb.velocity = v;
-			isRight = Input.GetAxis ("Horizontal") > 0f;
+			isRight = Input.GetAxis (ctrlPrefix + controls.horizontalAxis) > 0f;
 		}
 	}
 
@@ -136,7 +156,7 @@ public class PlayerScript : MonoBehaviour
 
 		if (isGrounded)
 		{
-			if (Input.GetButtonDown ("Jump"))
+			if (Input.GetButtonDown (ctrlPrefix + controls.jump))
 			{
 				rb.velocity += Vector2.up * jumpForce;
 			}
@@ -147,7 +167,7 @@ public class PlayerScript : MonoBehaviour
 		{
 			rb.velocity += Vector2.down * fallMultiplier;
 		}
-		else if (rb.velocity.y > 0 && !Input.GetButton ("Jump"))
+		else if (rb.velocity.y > 0 && !Input.GetButton (ctrlPrefix + controls.jump))
 		{
 			rb.velocity += Vector2.down * quickJumpMultiplier;
 		}
@@ -155,16 +175,23 @@ public class PlayerScript : MonoBehaviour
 
 	void Aim ()
 	{
-		Vector3 diff = Camera.main.ScreenToWorldPoint (Input.mousePosition) - ragdoll.hand_R.position;
-		diff.Normalize ();
+        //Vector3 diff = Camera.main.ScreenToWorldPoint (Input.mousePosition) - ragdoll.hand_R.position;
+        Vector3 diff = new Vector3(Input.GetAxis(ctrlPrefix + controls.aimXAxis), Input.GetAxis(ctrlPrefix + controls.aimYAxis), 0.0f);
+        //Vector3 diff = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+        if (diff.sqrMagnitude < 0.1f)
+        {
+            ragdoll.hand_R.rotation = lastRot;
+            return;
+        }
+        //diff.Normalize ();
 
 		float rotZ = Mathf.Atan2 (diff.y, diff.x) * Mathf.Rad2Deg;
-		ragdoll.hand_R.rotation = Quaternion.Euler (0.0f, 0.0f, rotZ - 90.0f);
+		ragdoll.hand_R.rotation = lastRot = Quaternion.Euler (0.0f, 0.0f, rotZ - 90.0f);
 	}
 
 	void UseItem()
 	{
-		if (Input.GetButtonDown("ItemUse"))
+		if (Input.GetButtonDown(ctrlPrefix + controls.useItem))
 		{
 			if (inventorySlot != ItemType.Nothing && inventorySlot != ItemType.Total)
 			{
