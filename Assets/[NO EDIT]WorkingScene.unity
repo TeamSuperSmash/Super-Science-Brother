@@ -1188,6 +1188,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114102845655699460, guid: c4dc897908d209f4d984fbd947991008,
+        type: 2}
+      propertyPath: fatboySpawnDistY
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4dc897908d209f4d984fbd947991008, type: 2}
   m_IsPrefabParent: 0
@@ -2395,6 +2400,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114102845655699460, guid: c4dc897908d209f4d984fbd947991008,
+        type: 2}
+      propertyPath: fatboySpawnDistY
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -3247,11 +3257,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!212 &1752450053 stripped
-SpriteRenderer:
-  m_PrefabParentObject: {fileID: 212779193465626276, guid: c4dc897908d209f4d984fbd947991008,
-    type: 2}
-  m_PrefabInternal: {fileID: 2080918509}
 --- !u!1001 &1752746793
 Prefab:
   m_ObjectHideFlags: 0
@@ -3425,6 +3430,11 @@ Prefab:
       propertyPath: matRend
       value: 
       objectReference: {fileID: 1245289655}
+    - target: {fileID: 114102845655699460, guid: c4dc897908d209f4d984fbd947991008,
+        type: 2}
+      propertyPath: fatboySpawnDistY
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -3861,97 +3871,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: controls.horizontalAxis
-      value: Horizontal
-      objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: controls.jump
-      value: AButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: controls.gunForce
-      value: XButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: controls.useItem
-      value: YButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: controls.gunInc
-      value: Increase
-      objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: controls.gunDec
-      value: Decrease
-      objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: controls.aimXAxis
-      value: XAxis
-      objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: controls.aimYAxis
-      value: YAxis
-      objectReference: {fileID: 0}
     - target: {fileID: 1947288773343612, guid: c4dc897908d209f4d984fbd947991008, type: 2}
       propertyPath: m_Name
       value: Player (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: ctrlPrefix
-      value: J2
-      objectReference: {fileID: 0}
-    - target: {fileID: 212970716415876166, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 422c97889c8e5d14796131c9e78a81f2,
-        type: 3}
-    - target: {fileID: 212357907563363046, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d9620d1d47670a0468dd2c2ac04617de,
-        type: 3}
-    - target: {fileID: 212925463211925464, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 94e625c61b38f49499d6dd68d06742dc,
-        type: 3}
-    - target: {fileID: 212522493545418312, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 23079343e68b424458b7c7bce4c59ad8,
-        type: 3}
-    - target: {fileID: 114877902890959040, guid: c4dc897908d209f4d984fbd947991008,
-        type: 2}
-      propertyPath: matRend
-      value: 
-      objectReference: {fileID: 1752450053}
-    - target: {fileID: 1947288773343612, guid: c4dc897908d209f4d984fbd947991008, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4dc897908d209f4d984fbd947991008, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2094619991
