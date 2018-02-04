@@ -434,7 +434,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1947288773343612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.81, y: 3.03, z: 0}
+  m_LocalPosition: {x: 2.1, y: -3.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4768110439322292}
@@ -764,6 +764,8 @@ MonoBehaviour:
     m_Bits: 256
   checkDistance: 0.5
   isGrounded: 0
+  timeToBreak: 0
+  timeToBreakCounter: 0
 --- !u!114 &114093081439339156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -780,6 +782,8 @@ MonoBehaviour:
     m_Bits: 256
   checkDistance: 0.5
   isGrounded: 0
+  timeToBreak: 0
+  timeToBreakCounter: 0
 --- !u!114 &114102845655699460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -795,7 +799,7 @@ MonoBehaviour:
   fatBoyPrefab: {fileID: 1850295449221692, guid: 80a78a19fcebc4f4f8d1d8207fbd71da,
     type: 2}
   fatboySpawnDistX: 0
-  fatboySpawnDistY: 0
+  fatboySpawnDistY: 9
 --- !u!114 &114200304086370216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -812,6 +816,8 @@ MonoBehaviour:
     m_Bits: 256
   checkDistance: 0.5
   isGrounded: 0
+  timeToBreak: 0
+  timeToBreakCounter: 0
 --- !u!114 &114261011783817856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -866,6 +872,8 @@ MonoBehaviour:
     m_Bits: 256
   checkDistance: 0.5
   isGrounded: 0
+  timeToBreak: 0
+  timeToBreakCounter: 0
 --- !u!114 &114583336504458270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -913,6 +921,8 @@ MonoBehaviour:
     m_Bits: 256
   checkDistance: 0.5
   isGrounded: 0
+  timeToBreak: 0
+  timeToBreakCounter: 0
 --- !u!114 &114864395378157182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -937,7 +947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7a81f2120487e4da56c6acdd6a901b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ctrlPrefix: J4
+  ctrlPrefix: J2
   controls:
     horizontalAxis: Horizontal
     jump: AButton
@@ -1009,6 +1019,8 @@ MonoBehaviour:
     m_Bits: 256
   checkDistance: 0.5
   isGrounded: 0
+  timeToBreak: 0
+  timeToBreakCounter: 0
 --- !u!212 &212044822570732252
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1175,7 +1187,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2b775b640921a6c4f8430b7b3349829b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d9620d1d47670a0468dd2c2ac04617de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1219,7 +1231,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b59ec17f0e0f3174ca09c7ea049b52de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 23079343e68b424458b7c7bce4c59ad8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1439,7 +1451,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 39ea4fe7bd7b9b74dacfa6698c109a87, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 94e625c61b38f49499d6dd68d06742dc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1483,7 +1495,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b75f10e819eea1f4ebeef7d70b27e079, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 422c97889c8e5d14796131c9e78a81f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

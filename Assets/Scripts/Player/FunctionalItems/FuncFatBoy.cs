@@ -9,7 +9,7 @@ public class FuncFatBoy : FunctionalItem
 	[Range(-16.0f, 16.0f)]
 	public float fatboySpawnDistX;
 
-	[Range(0.0f, 5.0f)]
+	[Range(0.0f, 10.0f)]
 	public float fatboySpawnDistY;
 
 	public override void UseItem()
