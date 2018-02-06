@@ -42,7 +42,7 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 	void CheckMassGun ()
 	{
-		if (Input.GetButton (player.ctrlPrefix + player.controls.gunDec)) {
+		if (Input.GetMouseButton (0)) {
 			usingMassGun = true;
 			isDraining = false;
 
@@ -53,7 +53,7 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_MASSGUN1);
 			}
 
-		} else if (Input.GetButton (player.ctrlPrefix + player.controls.gunInc)) {
+		} else if (Input.GetMouseButton(1)) {
 			usingMassGun = true;
 			isDraining = true;
 
@@ -76,7 +76,7 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 	void CheckForceGun ()
 	{
 		if (!isCooldownForceGun) {
-			if (Input.GetButtonDown (player.ctrlPrefix + player.controls.gunForce)) {
+			if (Input.GetKeyDown (KeyCode.F)) {
 				forceGunTimer = forceGunCooldown;
 				isCooldownForceGun = true;
 

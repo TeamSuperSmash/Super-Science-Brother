@@ -16,15 +16,9 @@ public class PlayerControls
 }
 
 [System.Serializable]
-public class PlayerRagdoll
+public class PlayerRagdoll : PlayerScript
 {
-	public Transform head;
 	public Transform body;
-	public Transform hand_L;
-	public Transform hand_R;
-	public Transform leg_L;
-	public Transform leg_R;
-
 	public Transform gun;
 	public Transform fireSpot;
 }
@@ -36,7 +30,7 @@ public interface PlayerComponent
 
 public class PlayerScript : MonoBehaviour
 {
-	//Developer
+	// Designer settings
 	private Rigidbody2D rb;
 
 	[Header ("Controls")]
@@ -44,13 +38,13 @@ public class PlayerScript : MonoBehaviour
 	public PlayerControls controls;
 
 	[Header ("Components")]
-	public PlayerRagdoll ragdoll;
 	public GroundCheck[] groundChecks;
 	public PlayerGunScript gun;
 	public FunctionalItem[] funcItems;
 	public SpriteRenderer itemSprite;
+    public PlayerRagdoll ragdoll;
 
-	[Header ("Stats")]
+    [Header ("Stats")]
 	public MaterialType type;
 	public float mass = 150.0f;
 	public ItemType inventorySlot;
@@ -70,22 +64,17 @@ public class PlayerScript : MonoBehaviour
 
 	void Awake ()
 	{
-		rb = ragdoll.body.GetComponent<Rigidbody2D> ();
+		rb = GetComponent<Rigidbody2D> ();
+        ragdoll = GetComponent<PlayerRagdoll>();
 
-		//GroundCheck
+		// GroundCheck
 		groundChecks = GetComponentsInChildren<GroundCheck> ();
-		/*
-		for(int i = 0; i < groundChecks.Length; i++)
-		{
-			groundChecks[i].SetPlayer(this);
-		}
-		*/
 
 		gun = GetComponent<PlayerGunScript> ();
 		if (gun != null)
 			gun.SetPlayer (this);
 
-		//FuncItems
+		// FuncItems
 		for (int i = 0; i < funcItems.Length; i++) {
 			funcItems [i].SetPlayer (this);
 		}
@@ -94,18 +83,10 @@ public class PlayerScript : MonoBehaviour
 	public void SetMaterial (Sprite sprite)
 	{
 		matRend.sprite = sprite;
-//		ragdoll.head.GetComponent<SpriteRenderer>().sprite = sprite;
-//		ragdoll.body.GetComponent<SpriteRenderer>().sprite = sprite;
-//		ragdoll.hand_L.GetComponent<SpriteRenderer>().sprite = sprite;
-//		ragdoll.hand_R.GetComponent<SpriteRenderer>().sprite = sprite;
-//		ragdoll.leg_L.GetComponent<SpriteRenderer>().sprite = sprite;
-//		ragdoll.leg_R.GetComponent<SpriteRenderer>().sprite = sprite;
 	}
 
 	void Start ()
 	{
-		//SetMaterial(type.GetSprite());
-		lastRot = ragdoll.hand_R.rotation;
 	}
 
 	void Update ()
@@ -139,26 +120,14 @@ public class PlayerScript : MonoBehaviour
 
 	void Movement ()
 	{
-		//Temporary keyboard movement
-		float ms;
-
 		if(Input.GetButton("Horizontal"))
 		{
-			//ms = Mathf.Lerp(1f, maxSpeed, rb.velocity.x / 10f);
-
 			Vector2 v = rb.velocity;
 
 			v.x = maxSpeed * Input.GetAxis("Horizontal");
 
 			rb.velocity = v;
 		}
-
-//		if (Input.GetAxis (ctrlPrefix + controls.horizontalAxis) != 0.0f) {
-//			Vector2 v = rb.velocity;
-//			v.x = maxSpeed * Input.GetAxis (ctrlPrefix + controls.horizontalAxis);
-//			rb.velocity = v;
-//			isRight = Input.GetAxis (ctrlPrefix + controls.horizontalAxis) > 0f;
-//		}
 	}
 
 	void Jump ()
@@ -173,23 +142,15 @@ public class PlayerScript : MonoBehaviour
 
 		if (isGrounded) 
 		{
-			//Temporary keyboard button
 			if(Input.GetKeyDown(KeyCode.Space))
 			{
 				rb.velocity += Vector2.up * jumpForce;
 
 				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_JUMP1);
 			}
-
-
-//			if (Input.GetButtonDown (ctrlPrefix + controls.jump) || Input.GetMouseButton (0)) {
-//				rb.velocity += Vector2.up * jumpForce;
-//
-//				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_JUMP1);
-//			}
 		}
 
-		//When player is falling
+		// When player is falling.
 		if (rb.velocity.y < 0) {
 			rb.velocity += Vector2.down * fallMultiplier;
 		} else if (rb.velocity.y > 0 && !Input.GetButton (ctrlPrefix + controls.jump)) {
@@ -200,21 +161,16 @@ public class PlayerScript : MonoBehaviour
 	void Aim ()
 	{
 		Vector2 diff = new Vector2 (Input.GetAxis (ctrlPrefix + controls.aimXAxis), Input.GetAxis (ctrlPrefix + controls.aimYAxis));
-		//Vector2 diff = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		if (diff.sqrMagnitude < 0.1f) {
-			ragdoll.hand_R.rotation = lastRot;
+			gun.transform.rotation = lastRot;
 			return;
 		}
-		//Vector3 diff = Camera.main.ScreenToWorldPoint (Input.mousePosition) - ragdoll.hand_R.position;
-		//diff.Normalize ();
-
 		float rotZ = Mathf.Atan2 (diff.y, diff.x) * Mathf.Rad2Deg;
-		ragdoll.hand_R.rotation = lastRot = Quaternion.Euler (0.0f, 0.0f, rotZ - 90.0f);
+        gun.transform.rotation = lastRot = Quaternion.Euler (0.0f, 0.0f, rotZ - 90.0f);
 	}
 
 	void UseItem ()
 	{
-		//Temporary keyboard button
 		if(Input.GetKeyDown(KeyCode.E))
 		{
 			if (inventorySlot != ItemType.Nothing && inventorySlot != ItemType.Total) 
@@ -222,12 +178,6 @@ public class PlayerScript : MonoBehaviour
 				funcItems [inventorySlot.GetInt ()].UseItem ();
 			}
 		}
-
-//		if (Input.GetButtonDown (ctrlPrefix + controls.useItem)) {
-//			if (inventorySlot != ItemType.Nothing && inventorySlot != ItemType.Total) {
-//				funcItems [inventorySlot.GetInt ()].UseItem ();
-//			}
-//		}
 	}
 
 	void HeldItem ()
