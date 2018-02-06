@@ -139,12 +139,26 @@ public class PlayerScript : MonoBehaviour
 
 	void Movement ()
 	{
-		if (Input.GetAxis (ctrlPrefix + controls.horizontalAxis) != 0.0f) {
+		//Temporary keyboard movement
+		float ms;
+
+		if(Input.GetButton("Horizontal"))
+		{
+			//ms = Mathf.Lerp(1f, maxSpeed, rb.velocity.x / 10f);
+
 			Vector2 v = rb.velocity;
-			v.x = maxSpeed * Input.GetAxis (ctrlPrefix + controls.horizontalAxis);
+
+			v.x = maxSpeed * Input.GetAxis("Horizontal");
+
 			rb.velocity = v;
-			isRight = Input.GetAxis (ctrlPrefix + controls.horizontalAxis) > 0f;
 		}
+
+//		if (Input.GetAxis (ctrlPrefix + controls.horizontalAxis) != 0.0f) {
+//			Vector2 v = rb.velocity;
+//			v.x = maxSpeed * Input.GetAxis (ctrlPrefix + controls.horizontalAxis);
+//			rb.velocity = v;
+//			isRight = Input.GetAxis (ctrlPrefix + controls.horizontalAxis) > 0f;
+//		}
 	}
 
 	void Jump ()
@@ -157,12 +171,22 @@ public class PlayerScript : MonoBehaviour
 			}
 		}
 
-		if (isGrounded) {
-			if (Input.GetButtonDown (ctrlPrefix + controls.jump) || Input.GetMouseButton (0)) {
+		if (isGrounded) 
+		{
+			//Temporary keyboard button
+			if(Input.GetKeyDown(KeyCode.Space))
+			{
 				rb.velocity += Vector2.up * jumpForce;
 
 				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_JUMP1);
 			}
+
+
+//			if (Input.GetButtonDown (ctrlPrefix + controls.jump) || Input.GetMouseButton (0)) {
+//				rb.velocity += Vector2.up * jumpForce;
+//
+//				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_JUMP1);
+//			}
 		}
 
 		//When player is falling
@@ -190,11 +214,20 @@ public class PlayerScript : MonoBehaviour
 
 	void UseItem ()
 	{
-		if (Input.GetButtonDown (ctrlPrefix + controls.useItem)) {
-			if (inventorySlot != ItemType.Nothing && inventorySlot != ItemType.Total) {
+		//Temporary keyboard button
+		if(Input.GetKeyDown(KeyCode.E))
+		{
+			if (inventorySlot != ItemType.Nothing && inventorySlot != ItemType.Total) 
+			{
 				funcItems [inventorySlot.GetInt ()].UseItem ();
 			}
 		}
+
+//		if (Input.GetButtonDown (ctrlPrefix + controls.useItem)) {
+//			if (inventorySlot != ItemType.Nothing && inventorySlot != ItemType.Total) {
+//				funcItems [inventorySlot.GetInt ()].UseItem ();
+//			}
+//		}
 	}
 
 	void HeldItem ()

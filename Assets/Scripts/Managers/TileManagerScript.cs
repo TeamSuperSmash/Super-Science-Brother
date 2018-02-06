@@ -6,7 +6,7 @@ public class TileManagerScript : MonoBehaviour {
 
 	public static TileManagerScript instance;
 
-	//Temporary tile array. Will be replaced by array of sprites
+    //Temporary tile array. Will be replaced by array of sprites
 	public GameObject tilePrefab;
 
 	public List<TileScript> tileList = new List<TileScript>();
