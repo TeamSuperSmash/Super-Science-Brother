@@ -2,22 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGunScript : MonoBehaviour, PlayerComponent
+public class PlayerGunScript : MonoBehaviour
 {
-	private PlayerScript player;
-
-	public void SetPlayer (PlayerScript player)
-	{
-		this.player = player;
-	}
-
 	[Header ("Settings")]
 	public LayerMask layerToHit;
+    PlayerScript player;
 
 	[Header ("Stats")]
 	public bool usingMassGun;
 	public bool isDraining;
-	[TooltipAttribute ("How much mass is changed per hit rate.")]
+	[TooltipAttribute ("Mass Change Per Hit")]
 	public float massTransferRate = 10.0f;
 
 	[Header ("Force Gun Stats")]
@@ -32,9 +26,17 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 	[Header ("Counter For Sounds")]
 	float sfxTimer0 = 1.0f;
 	float sfxTimer1 = 1.0f;
-	
-	// Update is called once per frame
-	void Update ()
+
+    [Header("Fire Position")]
+    public Transform fireSpot;
+
+    private void Start()
+    {
+        player = GetComponentInParent<PlayerScript>();
+    }
+
+    // Update is called once per frame
+    void Update ()
 	{
 		CheckMassGun ();
 		CheckForceGun ();
@@ -95,17 +97,12 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 	void MassShoot ()
 	{
-		Vector2 diff = new Vector2 (Input.GetAxis (player.ctrlPrefix + player.controls.aimXAxis), Input.GetAxis (player.ctrlPrefix + player.controls.aimYAxis));
-		//Vector2 diff = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-		if (diff.sqrMagnitude < 0.1f)
-			return;
+        Vector2 firePointPosition = new Vector2(fireSpot.transform.position.x, fireSpot.transform.position.y);
 
-		//Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
-		Vector2 firePointPosition = new Vector2 (player.ragdoll.fireSpot.position.x, player.ragdoll.fireSpot.position.y);
-
-		//RaycastHit2D hit = Physics2D.Raycast(firePointPosition, (mousePosition - firePointPosition) * 1000.0f, 100.0f, layerToHit);
-		RaycastHit2D hit = Physics2D.Raycast (firePointPosition, diff * 1000.0f, 100.0f, layerToHit);
-
+		Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
+        Vector2 diff = mousePosition - firePointPosition;
+        RaycastHit2D hit = Physics2D.Raycast(firePointPosition, diff * 1000.0f, 100.0f, layerToHit);
+		
 		Debug.DrawLine (firePointPosition, diff * 1000.0f, (isDraining ? Color.green : Color.yellow));
 		Debug.Log ("Player shoot the lazer!");
 
@@ -146,6 +143,6 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 	void ForceShoot ()
 	{
-		Instantiate (forceBallPrefab, player.ragdoll.fireSpot.position, Quaternion.identity);
+		Instantiate (forceBallPrefab, fireSpot.transform.position, Quaternion.identity);
 	}
 }

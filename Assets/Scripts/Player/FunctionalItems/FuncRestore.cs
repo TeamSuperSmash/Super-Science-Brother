@@ -9,7 +9,7 @@ public class FuncRestore : FunctionalItem
 	public override void UseItem ()
 	{
 		//Instantly checks nearby missing tiles and regenerates them
-		Collider2D[] tileRestoreList = Physics2D.OverlapCircleAll (player.ragdoll.body.position, radius);
+		Collider2D[] tileRestoreList = Physics2D.OverlapCircleAll (player.transform.position, radius);
 
 		for (int i = 0; i < tileRestoreList.Length; i++) {
 			if (tileRestoreList [i].CompareTag ("Tile")) {

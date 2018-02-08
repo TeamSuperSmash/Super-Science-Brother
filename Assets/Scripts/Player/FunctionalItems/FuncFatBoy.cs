@@ -14,7 +14,7 @@ public class FuncFatBoy : FunctionalItem
 
 	public override void UseItem()
 	{
-		Instantiate(fatBoyPrefab, new Vector2(player.ragdoll.body.position.x + fatboySpawnDistX, player.ragdoll.body.position.y + fatboySpawnDistY), transform.rotation);
+		Instantiate(fatBoyPrefab, new Vector2(player.transform.position.x + fatboySpawnDistX, player.transform.position.y + fatboySpawnDistY), transform.rotation);
 
 		player.inventorySlot = ItemType.Nothing;
 	}

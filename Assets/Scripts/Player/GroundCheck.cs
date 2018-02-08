@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class GroundCheck : MonoBehaviour//, PlayerComponent
 {
-	/*
-	private PlayerScript player;
+	/*private PlayerScript player;
 
 	public void SetPlayer(PlayerScript player)
 	{
 		this.player = player;
-	}
-	*/
+	}*/
+
 	public LayerMask hitGroundLayer;
 	public float checkDistance = 0.5f;
 	public bool isGrounded = false;
@@ -25,37 +24,50 @@ public class GroundCheck : MonoBehaviour//, PlayerComponent
 
 	void Start ()
 	{
-		playerMatType = GetComponentInParent<PlayerScript> ().type;
+		playerMatType = GetComponent<PlayerScript> ().type;
 	}
 
 	void Update ()
 	{
-		Vector2 position = transform.position;
-		Vector2 direction = Vector2.down;
-
-		Debug.DrawRay (transform.position, Vector2.down, Color.green);
-		RaycastHit2D hit = Physics2D.Raycast (position, direction, checkDistance, hitGroundLayer);
-
-		if (hit)
-			isGrounded = true;
-		else
-			isGrounded = false;
-
-		if (hit.collider) {
-			// Temp tile variable to check between player and tile.
-			tileMatType = hit.transform.gameObject.GetComponent<TileScript> ().type;
-
-			// Higher the number, heavier the player.
-			if (playerMatType - tileMatType > 0) {
-			
-				Debug.Log ("Player heavier than the tile!");
-
-				hit.transform.gameObject.SetActive (false);
-
-			} else if (playerMatType - tileMatType < 1) {
-
-				Debug.Log ("Player lighter than the tile!");
-			}
-		}
+        CheckingGround();		
 	}
+
+    void CheckingGround()
+    {
+        Vector2 position = transform.position;
+        Vector2 direction = Vector2.down;
+
+        Debug.DrawRay(transform.position, Vector2.down, Color.green);
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, checkDistance, hitGroundLayer);
+
+        if (hit)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+
+        // Check ground stability.
+        if (hit.collider)
+        {
+            // Temp tile variable to check between player and tile.
+            tileMatType = hit.transform.gameObject.GetComponent<TileScript>().type;
+
+            // Higher the number, heavier the player.
+            if (playerMatType - tileMatType > 0)
+            {
+
+                Debug.Log("Player heavier than the tile!");
+
+                hit.transform.gameObject.SetActive(false);
+
+            }
+            else if (playerMatType - tileMatType < 1)
+            {
+                Debug.Log("Player lighter than the tile!");
+            }
+        }
+    }
 }

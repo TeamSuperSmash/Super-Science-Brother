@@ -10,7 +10,7 @@ public class ForceGunProjectile : MonoBehaviour
 	public float lifeTime = 0.1f;
 	public float lifeTimeCounter = 0.0f;
 
-	void Update ()
+    void Update ()
 	{
 		CheckLifeTime ();
 	}
@@ -34,15 +34,19 @@ public class ForceGunProjectile : MonoBehaviour
 		if (tempRb2d) {
 			float power = 0.0f;
 
-			if (other.gameObject.CompareTag ("Player")) {
+			if (other.gameObject.CompareTag ("Player"))
+            {
 				Debug.Log ("Player toucha the exploda!");
-				PlayerScript tempPlayer = other.GetComponentInParent<PlayerScript> ();
+                SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_GETTINGPUSH);
 
-				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_GETTINGPUSH);
+                PlayerScript tempPlayer = other.gameObject.GetComponent<PlayerScript> ();
+                PlayerGunScript tempGun = other.gameObject.GetComponentInChildren<PlayerGunScript>();
 
-				// Power is inverse to the player's mass
-				power = ((-tempPlayer.mass + 250.0f) * forceAmplify) + tempPlayer.gun.forceGunFactor;
-			} else {
+                // Power is inverse to the player's mass.
+                power = ((-tempPlayer.mass + 250.0f) * forceAmplify) + tempGun.forceGunFactor;
+			}
+            else
+            {
 				power = 250.0f * forceAmplify;
 			}
 
@@ -50,6 +54,7 @@ public class ForceGunProjectile : MonoBehaviour
 				power = 0.0f;
 			}
 
+            // Reset velocity to improve consistency.
 			Vector2 v = tempRb2d.velocity;
 			v.y = 0.0f;
 			tempRb2d.velocity = v;

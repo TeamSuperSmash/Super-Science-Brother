@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a441b9cfa25c01f4a8f96cf31890b37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceAmplify: 30
+  forceAmplify: 15
   radius: 100
   lifeTime: 0.1
   lifeTimeCounter: 0
