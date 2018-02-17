@@ -42,7 +42,39 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 	void CheckMassGun ()
 	{
-		if (Input.GetButton (player.ctrlPrefix + player.controls.gunDec)) {
+		//GGJ controller version
+//		if (Input.GetButton (player.ctrlPrefix + player.controls.gunDec)) {
+//			usingMassGun = true;
+//			isDraining = false;
+//
+//			sfxTimer1 += Time.deltaTime;
+//
+//			if (sfxTimer1 > sfxTimer0) {
+//				sfxTimer1 = 0.0f;
+//				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_MASSGUN1);
+//			}
+//
+//		} else if (Input.GetButton (player.ctrlPrefix + player.controls.gunInc)) {
+//			usingMassGun = true;
+//			isDraining = true;
+//
+//			sfxTimer1 += Time.deltaTime;
+//
+//			if (sfxTimer1 > sfxTimer0) {
+//				sfxTimer1 = 0.0f;
+//				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_MASSGUN2);
+//			}
+//
+//		} else {
+//			usingMassGun = false;
+//		}
+//
+//		if (usingMassGun) {
+//			MassShoot ();
+//		}
+
+		//Naim's mouse version
+		if (Input.GetMouseButton(0)) {
 			usingMassGun = true;
 			isDraining = false;
 
@@ -53,7 +85,7 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_MASSGUN1);
 			}
 
-		} else if (Input.GetButton (player.ctrlPrefix + player.controls.gunInc)) {
+		} else if (Input.GetMouseButton(1)) {
 			usingMassGun = true;
 			isDraining = true;
 
@@ -95,7 +127,11 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 
 	void MassShoot ()
 	{
-		Vector2 diff = new Vector2 (Input.GetAxis (player.ctrlPrefix + player.controls.aimXAxis), Input.GetAxis (player.ctrlPrefix + player.controls.aimYAxis));
+		Vector3 rawMousePos = Input.mousePosition;
+		Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(rawMousePos);
+
+		Vector2 diff = new Vector2 (worldMousePos.x, worldMousePos.y);
+		//Vector2 diff = new Vector2 (Input.GetAxis (player.ctrlPrefix + player.controls.aimXAxis), Input.GetAxis (player.ctrlPrefix + player.controls.aimYAxis));
 		//Vector2 diff = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		if (diff.sqrMagnitude < 0.1f)
 			return;
@@ -133,11 +169,15 @@ public class PlayerGunScript : MonoBehaviour, PlayerComponent
 					if (player.mass <= PlayerSettings.maxMass && targetTile.mass >= PlayerSettings.minMass) {
 						targetTile.mass -= massTransferRate * Time.deltaTime;
 						player.mass += massTransferRate * Time.deltaTime;
+
+						targetTile.cooldown = 2f;
 					}
 				} else {
 					if (player.mass >= PlayerSettings.minMass && targetTile.mass <= PlayerSettings.maxMass) {
 						targetTile.mass += massTransferRate * Time.deltaTime;
 						player.mass -= massTransferRate * Time.deltaTime;
+
+						targetTile.cooldown = 2f;
 					}
 				}
 			}

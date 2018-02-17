@@ -105,7 +105,8 @@ public class PlayerScript : MonoBehaviour
 	void Start ()
 	{
 		//SetMaterial(type.GetSprite());
-		lastRot = ragdoll.hand_R.rotation;
+		//Disabled in Naim's version
+		//lastRot = ragdoll.hand_R.rotation;
 	}
 
 	void Update ()
@@ -199,17 +200,37 @@ public class PlayerScript : MonoBehaviour
 
 	void Aim ()
 	{
-		Vector2 diff = new Vector2 (Input.GetAxis (ctrlPrefix + controls.aimXAxis), Input.GetAxis (ctrlPrefix + controls.aimYAxis));
-		//Vector2 diff = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-		if (diff.sqrMagnitude < 0.1f) {
-			ragdoll.hand_R.rotation = lastRot;
-			return;
-		}
-		//Vector3 diff = Camera.main.ScreenToWorldPoint (Input.mousePosition) - ragdoll.hand_R.position;
-		//diff.Normalize ();
+		//Gun Rotation from the gun Transform
+		Vector3 rawMousePos = Input.mousePosition;
+		Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(rawMousePos);
+		worldMousePos.z = 0f;
+		float rotateSpeed = 20f;
 
-		float rotZ = Mathf.Atan2 (diff.y, diff.x) * Mathf.Rad2Deg;
-		ragdoll.hand_R.rotation = lastRot = Quaternion.Euler (0.0f, 0.0f, rotZ - 90.0f);
+		Vector2 targetDir = worldMousePos - ragdoll.gun.position;
+		float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+		Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		ragdoll.gun.rotation = Quaternion.Slerp(ragdoll.gun.rotation, rotation, rotateSpeed * Time.deltaTime);
+
+//		if(ragdoll.gun.rotation.z > 60f)
+//		{
+//			Debug.Log("ATS");
+//			ragdoll.body.Rotate(0f, -180f, 0f);
+//		}
+			
+
+		//Gun Rotation from the right hand ragdoll Transform
+//		Vector2 diff = new Vector2 (Input.GetAxis (ctrlPrefix + controls.aimXAxis), Input.GetAxis (ctrlPrefix + controls.aimYAxis));
+//		//Vector2 diff = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+//		if (diff.sqrMagnitude < 0.1f) 
+//		{
+//			ragdoll.hand_R.rotation = lastRot;
+//			return;
+//		}
+//		//Vector3 diff = Camera.main.ScreenToWorldPoint (Input.mousePosition) - ragdoll.hand_R.position;
+//		//diff.Normalize ();
+//
+//		float rotZ = Mathf.Atan2 (diff.y, diff.x) * Mathf.Rad2Deg;
+//		ragdoll.hand_R.rotation = lastRot = Quaternion.Euler (0.0f, 0.0f, rotZ - 90.0f);
 	}
 
 	void UseItem ()
@@ -234,11 +255,11 @@ public class PlayerScript : MonoBehaviour
 	{
 		Sprite item = inventorySlot.GetSprite ();
 
-		if (item == null)
-			itemSprite.color = Color.clear;
-		else
-			itemSprite.color = Color.white;
-		
-		itemSprite.sprite = item;
+//		if (item == null)
+//			itemSprite.color = Color.clear;
+//		else
+//			itemSprite.color = Color.white;
+//		
+//		itemSprite.sprite = item;
 	}
 }
